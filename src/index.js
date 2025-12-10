@@ -1,16 +1,18 @@
-require("dotenv").config();
-const app = require("./app");
-const { sequelize } = require("./models");
-const db = require("./models");
-require("./models/user.model");
+import "dotenv/config";
+import app from "./app.js";
+import sequelize from "./config/sequelize.js";
+import db from "./models/index.js";
+import "./models/user.model.js";
+import { startTicketExpiryCron } from "./cron/cancelExpiredTickets.js";
 
+const PORT = process.env.PORT || 5000;
+startTicketExpiryCron();
 sequelize
   .sync({ alter: true }) // ⬅️ THIS CREATES THE TABLE
   .then(() => {
     console.log("Database synced");
   })
   .catch((err) => console.log("DB Sync Error:", err));
-const PORT = process.env.PORT || 5000;
 
 db.sequelize
   .authenticate()

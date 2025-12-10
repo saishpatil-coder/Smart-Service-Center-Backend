@@ -1,33 +1,48 @@
-const { DataTypes } = require("sequelize");
+import { DataTypes } from "sequelize";
+export default  (sequelize) => {
+  const User = sequelize.define(
+    "User",
+    {
+      id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
 
-module.exports = (sequelize) => {
-  const User = sequelize.define("User", {
-    id: {
-      type: DataTypes.STRING,
-      primaryKey: true,
-    },
+      mobile: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
 
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
+      role: {
+        type: DataTypes.ENUM("CLIENT", "MECHANIC", "ADMIN"),
+        allowNull: false,
+        defaultValue: "CLIENT",
+      },
 
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+      status: {
+        type: DataTypes.ENUM("ACTIVE", "DISABLED"),
+        defaultValue: "ACTIVE",
+      },
     },
-
-    mobile: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-
-    createdAt: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW,
-    },
-  });
+    {
+      timestamps: true, // automatically adds createdAt & updatedAt
+      tableName: "Users",
+    }
+  );
 
   return User;
 };

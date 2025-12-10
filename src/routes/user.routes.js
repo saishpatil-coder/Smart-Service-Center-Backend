@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const prisma = require("../config/db");
+const db = require("../models");
 
 router.get("/all", async (req, res) => {
-  const users = await prisma.user.findMany();
+  const users = await db.User.findMany();
   res.json(users);
 });
 
-module.exports = router;
+export default router;
