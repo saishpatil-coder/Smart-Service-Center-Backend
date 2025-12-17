@@ -38,16 +38,34 @@ Object.values(db)
 db.Service.hasMany(db.Ticket, { foreignKey: "serviceId", as: "tickets" });
 db.Ticket.belongsTo(db.Service, { foreignKey: "serviceId", as: "service" });
 
-// Ticket - Client (User)
-db.User.hasMany(db.Ticket, { foreignKey: "clientId", as: "clientTickets" });
-db.Ticket.belongsTo(db.User, { foreignKey: "clientId", as: "client" });
+// Ticket relations
+db.Ticket.belongsTo(db.User, { as: "client", foreignKey: "clientId" });
+db.Ticket.belongsTo(db.User, { as: "mechanic", foreignKey: "mechanicId" });
 
-// Ticket - Mechanic (User) (nullable)
-db.User.hasMany(db.Ticket, { foreignKey: "mechanicId", as: "assignedTickets" });
-db.Ticket.belongsTo(db.User, { foreignKey: "mechanicId", as: "mechanic" });
-
+// Service relations
 db.Service.belongsTo(db.Severity, { foreignKey: "severityId" });
 db.Severity.hasMany(db.Service, { foreignKey: "severityId" });
+
+// Assignment queue
+
+// Mechanic tasks
+db.MechanicTask.belongsTo(db.Ticket, { foreignKey: "ticketId" });
+db.MechanicTask.belongsTo(db.User, { as: "mechanic", foreignKey: "mechanicId" });
+// Inventory ↔ MechanicTask association
+
+db.User.hasMany(db.MechanicTask, {
+  as: "tasks",
+  foreignKey: "mechanicId",
+});
+
+
+// Invoice 
+// db.Invoice.belongsTo(db.Ticket, { foreignKey: "ticketId" });
+// db.Invoice.belongsTo(db.User, { as: "client", foreignKey: "clientId" });
+// db.Invoice.belongsTo(db.User, { as: "mechanic", foreignKey: "mechanicId" });
+
+
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

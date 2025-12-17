@@ -1,10 +1,10 @@
 // src/routes/ticket.routes.js
-import { verifyClient } from "../middleware/auth.middleware.js";
-import { createTicket } from "../controllers/client.controller.js";
+import { Router } from "express";
 import { getAllServices } from "../controllers/service.controller.js";
+import { verifyClient } from "../middleware/auth.middleware.js";
 import upload from "../middleware/upload.js";
-import {Router} from "express";
-import db from "../models/index.js";
+import { createTicket, getClientTicketById, getTicketsByUser } from "../controllers/client.controller.js";
+import { cancelTicket } from "../controllers/admin.controller.js";
 
 const router = Router();
 router.post(
@@ -12,20 +12,9 @@ router.post(
   verifyClient,
   upload.single("image"),createTicket);
 
-router.get("/tickets",verifyClient, async (req, res) => {
-  console.log("getting tickets")
-  try {
-    const userId = req.user.id;
-    const tickets = await db.Ticket.findAll({
-      where: { clientId: userId },
-      order: [["createdAt", "DESC"]],
-    });
-    res.json({ tickets });
-  }catch (err) {
-    console.log(err)
-    res.status(511).json({"error" : "err"})
-  }
-}
-)
+router.get("/tickets",verifyClient,getTicketsByUser )
 router.get("/services" , getAllServices);
+router.get("/getclient" , verifyClient ,);
+router.get("/ticket/:id",verifyClient, getClientTicketById );
+router.patch("/ticket/:id/cancel", verifyClient, cancelTicket);
 export default router;

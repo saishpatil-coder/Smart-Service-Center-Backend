@@ -26,6 +26,14 @@ export default  (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      assignedCount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+      lastAssignedAt: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
 
       role: {
         type: DataTypes.ENUM("CLIENT", "MECHANIC", "ADMIN"),

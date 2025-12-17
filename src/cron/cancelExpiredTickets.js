@@ -10,25 +10,61 @@ export function startTicketExpiryCron() {
     try {
       const now = new Date();
 
-      const expiredTickets = await db.Ticket.findAll({
+      // Fetch pending tickets with service → severity
+      const tickets = await db.Ticket.findAll({
         where: {
           status: "PENDING",
-          slaAcceptDeadline: { [Op.lt]: now },
         },
+        include: [
+          {
+            model: db.Service,
+            as: "service",
+            include: [
+              {
+                model: db.Severity,
+                as: "Severity",
+              },
+            ],
+          },
+        ],
       });
 
-      if (expiredTickets.length === 0) return;
+      const expiredTicketIds = [];
+      console.log("Tickets")
+
+      for (const ticket of tickets) {
+        const maxAcceptMinutes = ticket.service?.Severity?.max_accept_minutes;
+
+        if (!maxAcceptMinutes) continue;
+
+        const acceptDeadline = new Date(
+          ticket.createdAt.getTime() + maxAcceptMinutes * 60 * 1000
+        );
+        let n = new Date().toLocaleString();
+        let a = new Date(acceptDeadline).toLocaleString();
+        console.log("Now : " ,n);
+        console.log("Accept : ",a);
+
+
+        if (now > acceptDeadline) {
+          expiredTicketIds.push(ticket.id);
+        }
+      }
+
+      if (!expiredTicketIds.length) return;
 
       console.log(
-        `⚠️ Auto-cancelling ${expiredTickets.length} expired tickets`
+        `⚠️ Auto-cancelling ${expiredTicketIds.length} expired tickets`
       );
 
       await db.Ticket.update(
-        { status: "CANCELLED", isEscalated: true },
+        {
+          status: "CANCELLED",
+          isEscalated: true,
+        },
         {
           where: {
-            status: "PENDING",
-            slaAcceptDeadline: { [Op.lt]: now },
+            id: { [Op.in]: expiredTicketIds },
           },
         }
       );

@@ -1,49 +1,177 @@
-import db from "../models/index.js"
+import db from "../models/index.js";
 
-export  const createTicket = async (req, res) => {
+export const createTicket = async (req, res) => {
+  console.log("creting ticket")
   try {
     const userId = req.user.id;
-    const { serviceId, title, description } = req.body;
-
+    const { serviceId, description } = req.body;
     // Cloudinary URL (multer provides it)
     const imageUrl = req.file ? req.file.path : null;
 
     const service = await db.Service.findByPk(serviceId);
     if (!service) return res.status(404).json({ message: "Service not found" });
-
     const severity = await db.Severity.findByPk(service.severityId);
-
-    const now = new Date();
 
     const ticket = await db.Ticket.create({
       clientId: userId,
       serviceId,
-      title,
+      title: service.serviceTitle,
       description,
-      severityName: severity.name,
-      severityPriority: severity.priority,
-
-      slaAcceptDeadline: new Date(
-        now.getTime() + severity.max_accept_minutes * 60000
-      ),
-      slaAssignDeadline: new Date(
-        now.getTime() + severity.max_assign_minutes * 60000
-      ),
-
-      expectedCompletionHours: service.defaultExpectedHours,
-      expectedCompletionAt: new Date(
-        now.getTime() + service.defaultExpectedHours * 3600000
-      ),
-      expectedCost: service.defaultCost,
-
+      cost: service.defaultCost,
       imageUrl, // ⭐ directly the Cloudinary image URL
-
       status: "PENDING",
+      priority:severity.priority
     });
-
+    console.log("created")
     return res.json({ message: "Ticket created", ticket });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to create ticket" });
+  }
+};
+
+export const getTicketsByUser = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const tickets = await db.Ticket.findAll({
+      where: { clientId: userId },
+      order: [["createdAt", "DESC"]],
+      include: [
+        {
+          model: db.Service,
+          as: "service",
+          include: [
+            {
+              model: db.Severity,
+              as: "Severity",
+            },
+          ],
+        },
+      ],
+    });
+
+    const formatted = tickets.map((t) => {
+      const severity = t.service?.Severity;
+
+      const createdAt = new Date(t.createdAt);
+
+      const slaAcceptDeadline = severity
+        ? new Date(createdAt.getTime() + severity.max_accept_minutes * 60000)
+        : null;
+
+      const slaAssignDeadline = severity
+        ? new Date(createdAt.getTime() + severity.max_assign_minutes * 60000)
+        : null;
+
+      return {
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        imageUrl: t.imageUrl,
+        status: t.status,
+        cost: t.cost,
+        priority: t.priority,
+        createdAt: t.createdAt,
+
+        // derived (view model)
+        severityName: severity?.name || "UNKNOWN",
+        expectedCompletionHours: t.service?.defaultExpectedHours || null,
+        slaAcceptDeadline,
+        slaAssignDeadline,
+      };
+    });
+
+    res.json({ tickets: formatted });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch tickets" });
+  }
+};
+export const getClientTicketById = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const ticketId = req.params.id;
+
+    const ticket = await db.Ticket.findOne({
+      where: { id: ticketId, clientId: userId },
+      include: [
+        {
+          model: db.Service,
+          as: "service",
+          include: [
+            {
+              model: db.Severity,
+              as: "Severity",
+            },
+          ],
+        },
+      ],
+    });
+
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
+
+    const severity = ticket.service?.Severity;
+    const createdAt = new Date(ticket.createdAt);
+
+    const slaAcceptDeadline = severity
+      ? new Date(createdAt.getTime() + severity.max_accept_minutes * 60000)
+      : null;
+
+    const slaAssignDeadline = severity
+      ? new Date(createdAt.getTime() + severity.max_assign_minutes * 60000)
+      : null;
+
+    const formattedTicket = {
+      // Core
+      id: ticket.id,
+      title: ticket.title,
+      description: ticket.description,
+      imageUrl: ticket.imageUrl,
+      status: ticket.status,
+      cost: ticket.cost,
+      priority: ticket.priority,
+
+      // Timeline
+      createdAt: ticket.createdAt,
+      acceptedAt: ticket.acceptedAt,
+      assignedAt: ticket.assignedAt,
+      completedAt: ticket.completedAt,
+
+      // Derived
+      severityName: severity?.name || "UNKNOWN",
+      severityPriority: severity?.priority ?? null,
+      expectedCompletionHours: ticket.service?.defaultExpectedHours ?? null,
+
+      slaAcceptDeadline,
+      slaAssignDeadline,
+
+      isEscalated: ticket.isEscalated,
+    };
+
+    res.json({ ticket: formattedTicket });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch ticket" });
+  }
+};
+
+export const getClientDetails = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const client = await db.User.findOne({
+      where: { id: userId },
+      attributes: ['id', 'name', 'email', 'phone', 'createdAt']
+    });
+    if (!client) {
+      return res.status(404).json({ message: "Client not found" });
+    }
+    res.json({ client });
+  }
+  catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch client details" });
   }
 };

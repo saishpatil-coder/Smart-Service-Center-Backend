@@ -6,11 +6,11 @@ import "./models/user.model.js";
 import { startTicketExpiryCron } from "./cron/cancelExpiredTickets.js";
 
 const PORT = process.env.PORT || 5000;
-startTicketExpiryCron();
 sequelize
-  .sync({ alter: true }) // ⬅️ THIS CREATES THE TABLE
-  .then(() => {
-    console.log("Database synced");
+.sync() // ⬅️ THIS CREATES THE TABLE
+.then(() => {
+  console.log("Database synced");
+  startTicketExpiryCron();
   })
   .catch((err) => console.log("DB Sync Error:", err));
 
