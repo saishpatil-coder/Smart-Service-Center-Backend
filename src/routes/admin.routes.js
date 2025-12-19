@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { verifyAdmin } from "../middleware/auth.middleware.js";
 import { registerUser } from "../controllers/auth.controller.js";
-import { getAllMechanics,deleteMechanic, getAllPendingTickets, getAssignmentQueue, getAllTickets, getTicketById, acceptTicket, cancelTicket, getMechanicWithTasks } from "../controllers/admin.controller.js";
+import { getAllMechanics,deleteMechanic, getAllPendingTickets, getAssignmentQueue, getAllTickets, getTicketById, acceptTicket, cancelTicket, getMechanicWithTasks, addInventoryItem, deleteInventoryItem } from "../controllers/admin.controller.js";
 import { getAllServices,addService, getSeverities } from "../controllers/service.controller.js";
 import { getInventory } from "../controllers/inventory.controller.js";
 const router = Router();
@@ -36,6 +36,9 @@ router.get("/assignment-queue",verifyAdmin,getAssignmentQueue);
 router.get("/tickets",verifyAdmin,getAllTickets);
 
 router.get("/inventory", getInventory);
+router.post("/inventory", verifyAdmin,addInventoryItem);
+router.delete("/inventory/:id", verifyAdmin, deleteInventoryItem);
+
 
 // Ticket Detail Routes
 router.get("/ticket/:id", verifyAdmin, getTicketById);

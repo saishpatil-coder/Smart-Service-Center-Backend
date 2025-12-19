@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models/index.js"
 import { assignMechanicIfPossible } from "./mech.controller.js";
 export  const getAllMechanics = async (req, res) => {
@@ -155,20 +156,61 @@ export const getAssignmentQueue = async (req, res) => {
 
 export const getAllTickets = async (req, res) => {
   try {
+
     const tickets = await db.Ticket.findAll({
       order: [["createdAt", "DESC"]],
       include: [
-        { model: db.Service, as: "service" },
-        { model: db.User, as: "client" },
+        {
+          model: db.Service,
+          as: "service",
+          include: [
+            {
+              model: db.Severity,
+              as: "Severity",
+            },
+          ],
+        },
       ],
     });
 
-    res.json({ tickets });
+    const formatted = tickets.map((t) => {
+      const severity = t.service?.Severity;
+
+      const createdAt = new Date(t.createdAt);
+
+      const slaAcceptDeadline = severity
+        ? new Date(createdAt.getTime() + severity.max_accept_minutes * 60000)
+        : null;
+
+      const slaAssignDeadline = severity
+        ? new Date(createdAt.getTime() + severity.max_assign_minutes * 60000)
+        : null;
+
+      return {
+        id: t.id,
+        title: t.title,
+        description: t.description,
+        imageUrl: t.imageUrl,
+        status: t.status,
+        cost: t.cost,
+        priority: t.priority,
+        createdAt: t.createdAt,
+
+        // derived (view model)
+        severityName: severity?.name || "UNKNOWN",
+        expectedCompletionHours: t.service?.defaultExpectedHours || null,
+        slaAcceptDeadline,
+        slaAssignDeadline,
+      };
+    });
+
+    res.json({ tickets: formatted });
   } catch (err) {
-    console.error("GET ALL TICKETS:", err);
+    console.error(err);
     res.status(500).json({ message: "Failed to fetch tickets" });
   }
 };
+
 
 
 export const getTicketById = async (req, res) => {
@@ -186,11 +228,16 @@ export const getTicketById = async (req, res) => {
         { model: db.User, as: "mechanic" },
       ],
     });
+    const mechanicTask = await db.MechanicTask.findOne({
+      where : [{ticketId : ticket.id}]
+    })
+    console.log(mechanicTask?.partsUsed??"no parts used")
+    // console.log(ticket)
 
     if (!ticket) {
       return res.status(404).json({ message: "Ticket not found" });
     }
-    console.log(ticket.mechanic)
+    // console.log(ticket.mechanic)
     const service = ticket.service;
     const severity = service?.Severity;
 
@@ -245,6 +292,7 @@ export const getTicketById = async (req, res) => {
       // Relations
       client: ticket.client,
       mechanic: ticket.mechanic,
+      partsUsed : mechanicTask?.partsUsed??"",
       service: {
         id: service.id,
         serviceTitle: service.serviceTitle,
@@ -465,3 +513,43 @@ export const addNewService = async (req, res) => {
     });
   }
 };
+
+
+export const addInventoryItem = async (req, res) => {
+  try {
+    const { name, sku, category, quantity, unitPrice, unit, minStock } = req.body;
+    // Basic validation
+    if (!name || !sku || !category || quantity == null || !unitPrice || !unit) {
+      return res.status(400).json({ message: "Missing required fields." });
+    }
+    const newItem = await db.Inventory.create({
+      name,
+      sku,
+      category,
+      quantity,
+      unitPrice,
+      unit,
+      minStock,
+      isActive: true,
+    });
+    return res.status(201).json({ message: "Inventory item added successfully.", item: newItem });
+  } catch (err) {
+    console.error("ADD INVENTORY ITEM ERROR:", err);
+    return res.status(500).json({ message: "Failed to add inventory item." });
+  }
+};
+export const deleteInventoryItem = async (req, res) => {
+  try{
+    const { id } = req.params;
+    const item = await db.Inventory.findByPk(id);
+    if(!item){
+      return res.status(404).json({message: "Item not found"});
+    }
+    await item.destroy();
+    return res.json({message: "Item deleted successfully"});
+  }catch(err){
+    console.error("DELETE INVENTORY ITEM ERROR:", err);
+    return res.status(500).json({ message: "Failed to delete inventory item." });
+
+  }
+}

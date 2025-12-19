@@ -227,6 +227,7 @@ export const addPartsUsedToTask = async (req, res) => {
     // items = [{ inventoryId, name, quantity, unit, unitPrice }]
 
     if (!Array.isArray(items) || items.length === 0) {
+      console.log("Items array is required")
       return res.status(400).json({ message: "Items array is required" });
     }
 
@@ -235,6 +236,7 @@ export const addPartsUsedToTask = async (req, res) => {
     );
 
     if (!task) {
+      console.log("Mechanic task not found")
       return res.status(404).json({ message: "Mechanic task not found" });
     }
 
@@ -269,6 +271,8 @@ export const addPartsUsedToTask = async (req, res) => {
     }
 
     task.partsUsed = existingParts;
+        task.changed("partsUsed", true); 
+
     await task.save();
 
     res.json({
