@@ -3,8 +3,8 @@ import { Router } from "express";
 import { getAllServices } from "../controllers/service.controller.js";
 import { verifyClient } from "../middleware/auth.middleware.js";
 import upload from "../middleware/upload.js";
-import { createTicket, getClientTicketById, getTicketsByUser } from "../controllers/client.controller.js";
-import { cancelTicket } from "../controllers/admin.controller.js";
+import { createTicket, getClientTicketById, getTicketsByUser, getUnpaidInvoices, payInvoice } from "../controllers/client.controller.js";
+import { cancelTicket, getTicketById } from "../controllers/admin.controller.js";
 
 const router = Router();
 router.post(
@@ -15,6 +15,9 @@ router.post(
 router.get("/tickets",verifyClient,getTicketsByUser )
 router.get("/services" , getAllServices);
 router.get("/getclient" , verifyClient ,);
-router.get("/ticket/:id",verifyClient, getClientTicketById );
+// router.get("/ticket/:id",verifyClient, getClientTicketById );
+router.get("/ticket/:id", verifyClient, getTicketById);
 router.patch("/ticket/:id/cancel", verifyClient, cancelTicket);
+router.get("/unpaid-invoice",verifyClient,getUnpaidInvoices);
+router.post("/pay-invoice",verifyClient,payInvoice)
 export default router;

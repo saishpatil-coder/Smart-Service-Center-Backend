@@ -61,6 +61,9 @@ export function startTicketExpiryCron() {
         {
           status: "CANCELLED",
           isEscalated: true,
+          cancelledBy: "SYSTEM",
+          cancellationReason: "Auto-cancelled due to SLA breach",
+          cancelledAt: new Date(),
         },
         {
           where: {

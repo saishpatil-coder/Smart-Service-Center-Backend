@@ -228,15 +228,15 @@ export const getTicketById = async (req, res) => {
         { model: db.User, as: "mechanic" },
       ],
     });
+    if (!ticket) {
+      return res.status(404).json({ message: "Ticket not found" });
+    }
     const mechanicTask = await db.MechanicTask.findOne({
       where : [{ticketId : ticket.id}]
     })
     console.log(mechanicTask?.partsUsed??"no parts used")
     // console.log(ticket)
 
-    if (!ticket) {
-      return res.status(404).json({ message: "Ticket not found" });
-    }
     // console.log(ticket.mechanic)
     const service = ticket.service;
     const severity = service?.Severity;
@@ -288,6 +288,12 @@ export const getTicketById = async (req, res) => {
       // Severity
       severityName: severity.name,
       severityPriority: severity.priority,
+      isPaid: ticket.isPaid,
+      paymentMethod: ticket.paymentMethod,
+      isEscalated: ticket.isEscalated,
+      cancelledAt: ticket.cancelledAt,
+      cancelledBy: ticket.cancelledBy,
+      cancellationReason: ticket.cancellationReason,
 
       // Relations
       client: ticket.client,
@@ -354,6 +360,7 @@ export const acceptTicket = async (req, res) => {
 export const cancelTicket = async (req, res) => {
   try {
     const { id } = req.params;
+    const user = req.user;
     console.log("Cancelling ticket")
 
     const ticket = await db.Ticket.findByPk(id);
@@ -362,6 +369,9 @@ export const cancelTicket = async (req, res) => {
     await ticket.update({
       status: "CANCELLED",
       completedAt: new Date(),
+      cancelledBy: user.role === "ADMIN" ? "ADMIN" : "CLIENT",
+      cancellationReason: req.body?.reason?? null,
+      cancelledAt: new Date(),
     });
 
     return res.json({ message: "Ticket cancelled.", ticket });

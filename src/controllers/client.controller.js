@@ -1,3 +1,4 @@
+import { QueryTypes } from "sequelize";
 import db from "../models/index.js";
 
 export const createTicket = async (req, res) => {
@@ -113,6 +114,10 @@ export const getClientTicketById = async (req, res) => {
       return res.status(404).json({ message: "Ticket not found" });
     }
 
+        const mechanicTask = await db.MechanicTask.findOne({
+          where : [{ticketId : ticket.id}]
+        })
+        console.log(mechanicTask?.partsUsed??"no parts used")
     const severity = ticket.service?.Severity;
     const createdAt = new Date(ticket.createdAt);
 
@@ -147,6 +152,7 @@ export const getClientTicketById = async (req, res) => {
 
       slaAcceptDeadline,
       slaAssignDeadline,
+      partsUsed: mechanicTask?.partsUsed ?? [],
 
       isEscalated: ticket.isEscalated,
     };
@@ -173,5 +179,99 @@ export const getClientDetails = async (req, res) => {
   catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch client details" });
+  }
+};
+
+export const getUnpaidInvoices = async (req, res) => {
+  try {
+    const clientId = req.user.id;
+
+    /* 1. Fetch completed & unpaid tickets */
+    const tickets = await db.Ticket.findAll({
+      where: {
+        clientId,
+        status: "COMPLETED",
+        isPaid: false,
+      },
+      raw: true, // IMPORTANT
+    });
+
+    if (!tickets.length) {
+      return res.json({
+        tickets: [],
+        totalLabor: 0,
+        parts: [],
+      });
+    }
+
+    const ticketIds = tickets.map((t) => t.id);
+
+    /* 2. Fetch mechanic tasks */
+    const tasks = await db.MechanicTask.findAll({
+      where: { ticketId: ticketIds },
+      raw: true,
+    });
+
+    /* 3. Attach tasks to tickets */
+    const ticketsWithTasks = tickets.map((ticket) => ({
+      ...ticket,
+      mechanicTasks: tasks.filter((t) => t.ticketId === ticket.id),
+    }));
+
+    /* 4. Calculate labor */
+    const totalLabor = ticketsWithTasks.reduce(
+      (sum, t) => sum + Number(t.cost || 0),
+      0
+    );
+
+    /* 5. Aggregate parts */
+    const partsMap = new Map();
+
+    ticketsWithTasks.forEach((ticket) => {
+      ticket.mechanicTasks.forEach((task) => {
+        (task.partsUsed || []).forEach((part) => {
+          const key = part.inventoryId;
+          if (partsMap.has(key)) {
+            partsMap.get(key).quantity += part.quantity;
+          } else {
+            partsMap.set(key, { ...part });
+          }
+        });
+      });
+    });
+
+    res.json({
+      tickets: ticketsWithTasks,
+      totalLabor,
+      parts: Array.from(partsMap.values()),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch invoice data" });
+  }
+};
+
+
+export const payInvoice = async (req, res) => {
+  try {
+    const clientId = req.user.id;
+    await db.Ticket.update(
+      {
+        isPaid: true,
+        paymentMethod:"CASH",
+      },
+      {
+        where: { clientId }
+      }
+    );
+
+
+    res.json({
+      success: true,
+      message: "Invoice paid successfully",
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Payment failed" });
   }
 };

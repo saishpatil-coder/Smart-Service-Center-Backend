@@ -5,9 +5,16 @@ import db from "./models/index.js";
 import "./models/user.model.js";
 import { startTicketExpiryCron } from "./cron/cancelExpiredTickets.js";
 
+// Object.values(db).forEach((model) => {
+//   console.log(`Table: ${model.name}`);
+//   console.log(Object.keys(model.rawAttributes));
+//   console.log("");
+// });
+
+
 const PORT = process.env.PORT || 5000;
 sequelize
-.sync() // ⬅️ THIS CREATES THE TABLE
+.sync({alter:true}) // ⬅️ THIS CREATES THE TABLE
 .then(() => {
   console.log("Database synced");
   startTicketExpiryCron();
