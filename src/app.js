@@ -11,13 +11,16 @@ dotenv.config();
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
+import cors from "cors";
+
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: true, // 👈 reflects request origin
+    credentials: true, // 👈 allows cookies
   })
 );
+app.options("*", cors());
+
 
 //Auth Routes
 app.use("/api/auth", authRoutes);
