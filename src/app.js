@@ -11,7 +11,6 @@ dotenv.config();
 // Middlewares
 app.use(express.json());
 app.use(cookieParser());
-import cors from "cors";
 
 
 app.use(
@@ -21,7 +20,6 @@ app.use(
   })
 );
 
-app.options("*", cors());
 
 
 
