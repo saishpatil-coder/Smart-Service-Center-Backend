@@ -13,13 +13,16 @@ app.use(express.json());
 app.use(cookieParser());
 import cors from "cors";
 
+
 app.use(
   cors({
-    origin: true, // 👈 reflects request origin
-    credentials: true, // 👈 allows cookies
+    origin: true,
+    credentials: true,
   })
 );
+
 app.options("*", cors());
+
 
 
 //Auth Routes
