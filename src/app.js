@@ -15,7 +15,12 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL, // your Next.js frontend URL
     credentials: true,
+  },
+{
+    origin : "https://smart-service-center-frontend-lxe6llxq8.vercel.app", // your Next.js frontend URL
+    credentials: true,
   })
+
 );
 
 //Auth Routes
