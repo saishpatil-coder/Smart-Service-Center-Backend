@@ -57,3 +57,22 @@ export const verifyMechanic = (req, res, next) => {
     return res.status(401).json({ message: "Invalid or expired token." });
   }
 };
+
+
+export const verifyUser = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    console.log("token not available")
+    return res.status(401).json({ message: "Not authenticated." });
+  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    req.user = decoded; // attach user details to request
+    next();
+  } catch (err) {
+    console.log("Authorization error : " ,err)
+    return res.status(401).json({ message: "Invalid or expired token." });
+  }
+};

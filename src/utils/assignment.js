@@ -1,12 +1,15 @@
 // src/utils/assignment.js
 import db from "../models/index.js";
+import { notifyUser } from "./sendNotification.js";
 
 export async function assignNextTaskInQueueIfExists(mechanic) {
   try {
-    // Max 1 active task per mechanic (you can change to 2 later)
+    // Max 1 active task per mechanic
+    
     if (mechanic.assignedCount >= 1) return null;
     const mechanicId = mechanic.id;
-    // Fetch next ticket from ACCEPTED queue
+
+    // Fetch next ticket from ACCEPTED queue using the global sorting logic
     const nextTicket = await db.Ticket.findOne({
       where: { status: "ACCEPTED" },
       include: [
@@ -16,14 +19,19 @@ export async function assignNextTaskInQueueIfExists(mechanic) {
           include: [
             {
               model: db.Severity,
-              as: "Severity", // must match association alias
+              as: "Severity",
             },
           ],
         },
       ],
       order: [
-        // priority comes from severity table
+        // 1. 🔥 ESCALATED TICKETS FIRST
+        ["isEscalated", "DESC"],
+
+        // 2. 🔥 CUSTOM PRIORITY (The 501, 567 values from Ticket table)
         ["priority", "ASC"],
+
+        // 3. 🔥 FIFO (Oldest tickets first for ties)
         ["createdAt", "ASC"],
       ],
     });
@@ -41,7 +49,7 @@ export async function assignNextTaskInQueueIfExists(mechanic) {
 
     // Update mechanic workload
     await mechanic.update({
-      assignedCount: mechanic.assignedCount + 1,
+      assignedCount: (mechanic.assignedCount || 0) + 1,
       lastAssignedAt: now,
     });
 
@@ -50,6 +58,20 @@ export async function assignNextTaskInQueueIfExists(mechanic) {
       ticketId: nextTicket.id,
       mechanicId,
     });
+
+    // Notify Mechanic
+    await notifyUser(
+      mechanicId,
+      "New Task Assigned",
+      `You have been assigned a new task: ${nextTicket.title}`
+    );
+
+    // Notify Client
+    await notifyUser(
+      nextTicket.clientId,
+      "Task Assigned",
+      `Your task "${nextTicket.title}" has been assigned to a mechanic.`
+    );
 
     return nextTicket;
   } catch (err) {

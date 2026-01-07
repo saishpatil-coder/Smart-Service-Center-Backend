@@ -1,10 +1,17 @@
 import db from "../models/index.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
+import { notifyUser, sendNotification } from "../utils/sendNotification.js";
 export  const registerUser = async (req, res) => {
   try {
     const { name, email, mobile, password, role } = req.body;
+    const existingUser = await db.User.findOne({ where: { email } });
 
+    if (existingUser) {
+      return res.status(409).json({
+        message: "Email already registered",
+      });
+    }
     const hashed = await bcrypt.hash(password, 10);
 
     const user = await db.User.create({
@@ -51,6 +58,7 @@ export  const loginUser = async (req, res) => {
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
+    // sendNotification(user.fcmToken,"logged in ")
 
     res.json({ message: "Logged in", user });
   } catch (err) {
@@ -86,3 +94,49 @@ export  const getMe = async (req, res) => {
     return res.status(401).json({ user: null });
   }
 };
+
+// controllers/user.controller.js
+export async function saveFcmToken(req, res) {
+  const { token, deviceInfo } = req.body;
+  if (!token) { 
+    return res.status(400).json({ message: "FCM token is required" });
+  }
+  console.log("token : ",token.substring(0,5))
+  console.log("deviceInfo : ",deviceInfo.substring(0,5))
+  try {
+      await db.UserFcmToken.findOrCreate({
+        where: { token },
+        defaults: {
+          userId: req.user.id
+        },
+      });
+
+      res.json({ success: true });
+      // notifyUser(req.user.id, "Logged out", "You have been logged out successfully.");
+  } catch (err) {
+    console.error("SAVE FCM TOKEN ERROR:", err);
+    res.status(500).json({ message: "Error saving FCM token" });
+  }
+
+}
+
+export async function removeFcmToken(req, res) {
+  const { token } = req.body;
+  if (!token) {
+    return res.status(400).json({ message: "FCM token is required" });
+  }
+try{
+    await db.UserFcmToken.destroy({
+    where: {
+      userId: req.user.id,
+      token: token,
+    },
+
+  });
+}catch(err){
+  console.error("REMOVE FCM TOKEN ERROR:", err);
+  res.status(500).json({ message: "Error removing FCM token" });
+}
+
+  res.json({ success: true });
+}

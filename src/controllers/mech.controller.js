@@ -1,5 +1,10 @@
 import db from "../models/index.js";
 import { assignNextTaskInQueueIfExists } from "../utils/assignment.js";
+import { notifyUser } from "../utils/sendNotification.js";
+// src/controllers/mechanicDashboard.controller.js
+
+import { Op, Sequelize } from "sequelize";
+
 export const assignMechanicIfPossible = async (ticket) => {
   try {
     const mechanics = await db.User.findAll({
@@ -7,7 +12,7 @@ export const assignMechanicIfPossible = async (ticket) => {
       include: [
         {
           model: db.MechanicTask,
-          as: "tasks", // 👈 MUST match association alias
+          as: "tasks", 
           required: false,
           where: { completedAt: null },
         },
@@ -36,7 +41,11 @@ export const assignMechanicIfPossible = async (ticket) => {
     await freeMech.update({
       lastAssignedAt: now,
     });
-
+    await notifyUser(
+      freeMech.id,
+      "New Task Assigned",
+      `You have been assigned a new task: ${ticket.title}`
+    );
     return freeMech;
   } catch (err) {
     console.error("ASSIGN MECHANIC ERROR:", err);
@@ -146,12 +155,17 @@ export const startTask = async (req, res) => {
     });
 
     if (!mechTask) {
+      console.log("mechanic not found")
       return res.status(500).json({ message: "Mechanic task not found." });
     }
 
     await mechTask.update({
       startedAt: now,
     });
+    await notifyUser(ticket.clientId,
+      "Task Started",
+      `Your task "${ticket.title}" has been started by the mechanic.`
+    );
 
     res.json({ message: "Task started", ticket });
   } catch (err) {
@@ -204,6 +218,10 @@ export const completeTask = async (req, res) => {
     await mechanic.update({
       assignedCount: Math.max(0, mechanic.assignedCount - 1),
     });
+    await notifyUser(ticket.clientId,
+      "Task Completed",
+      `Your task "${ticket.title}" has been completed by the mechanic.`
+    );
 
     // Try assigning next task automatically
     await assignNextTaskInQueueIfExists(mechanic);
@@ -283,4 +301,112 @@ export const addPartsUsedToTask = async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Failed to update parts used" });
   }
+};
+
+
+
+export const getMechanicDashboardSummary = async (req, res) => {
+  const mechanicId = req.user.id;
+
+  const [assigned, inProgress, completedToday] = await Promise.all([
+    db.MechanicTask.count({
+      where: { mechanicId },
+    }),
+
+    db.MechanicTask.count({
+      where: { mechanicId, completedAt: null },
+    }),
+
+    db.MechanicTask.count({
+      where: {
+        mechanicId,
+        completedAt: {
+          [Op.gte]: Sequelize.literal("CURRENT_DATE"),
+        },
+      },
+    }),
+  ]);
+
+  res.json({
+    summary: {
+      totalAssigned: assigned,
+      inProgress,
+      completedToday,
+    },
+  });
+};
+
+export const getMechanicDashboardTasks = async (req, res) => {
+  const mechanicId = req.user.id;
+
+  const tasks = await db.MechanicTask.findAll({
+    where: { mechanicId },
+    include: [
+      {
+        model: db.Ticket,
+        attributes: ["id", "title", "status", "priority"],
+        include: [
+          {
+            model: db.User,
+            as: "mechanic",
+            attributes: ["name", "phone"],
+          },
+        ],
+      },
+    ],
+    order: [["createdAt", "DESC"]],
+    limit: 10,
+  });
+
+  res.json({ tasks });
+};
+
+
+
+export const punchIn = async (req, res) => {
+try{
+  await db.User.update(
+    {
+      status: "ACTIVE",
+    },
+    { where: { id: req.user.id } }
+  );
+  // Add 'await' here
+  const mechanic = await db.User.findByPk(req.user.id);
+
+  if (!mechanic) {
+    return res.status(404).json({ message: "Mechanic not found" });
+  }
+
+  // Now mechanic is a Sequelize instance and has the .update method
+  await assignNextTaskInQueueIfExists(mechanic);
+
+  res.json({
+    success: true,
+    message: "You are now available for work",
+  });
+}catch(err){
+    console.error("PUNCH IN ERROR:", err);
+    res.status(500).json({ message: "Error punching in" });
+}
+};
+
+export const punchOut = async (req, res) => {
+try{
+    await db.User.update(
+    {
+      status : "DISABLED",
+    },
+    { where: { id: req.user.id } }
+  );
+
+  res.json({
+    success: true,
+    message: "You are now unavailable for work",
+  });
+}catch(err){
+
+    console.error("PUNCH OUT ERROR:", err);
+    res.status(500).json({ message: "Error punching out" });
+}
 };

@@ -14,7 +14,7 @@ import { startTicketExpiryCron } from "./cron/cancelExpiredTickets.js";
 
 const PORT = process.env.PORT || 5000;
 sequelize
-.sync({alter:true}) // ⬅️ THIS CREATES THE TABLE
+.sync() // ⬅️ THIS CREATES THE TABLE
 .then(() => {
   console.log("Database synced");
   startTicketExpiryCron();

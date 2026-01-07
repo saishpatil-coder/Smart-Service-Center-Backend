@@ -1,5 +1,6 @@
 import { QueryTypes } from "sequelize";
 import db from "../models/index.js";
+import { notifyAdmins } from "../utils/sendNotification.js";
 
 export const createTicket = async (req, res) => {
   console.log("creting ticket")
@@ -19,11 +20,13 @@ export const createTicket = async (req, res) => {
       title: service.serviceTitle,
       description,
       cost: service.defaultCost,
-      imageUrl, // ⭐ directly the Cloudinary image URL
+      imageUrl,
       status: "PENDING",
       priority:severity.priority
     });
     console.log("created")
+    //send notification to 
+    await notifyAdmins("New Ticket Created", `A new ticket (#${ticket.id}) has been created.`);
     return res.json({ message: "Ticket created", ticket });
   } catch (err) {
     console.log(err);
@@ -117,8 +120,8 @@ export const getClientTicketById = async (req, res) => {
         const mechanicTask = await db.MechanicTask.findOne({
           where : [{ticketId : ticket.id}]
         })
-        console.log(mechanicTask?.partsUsed??"no parts used")
-    const severity = ticket.service?.Severity;
+
+        const severity = ticket.service?.Severity;
     const createdAt = new Date(ticket.createdAt);
 
     const slaAcceptDeadline = severity

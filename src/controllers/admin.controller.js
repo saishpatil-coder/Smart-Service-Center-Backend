@@ -1,6 +1,7 @@
-import { where } from "sequelize";
+import { Op, Sequelize, where } from "sequelize";
 import db from "../models/index.js"
 import { assignMechanicIfPossible } from "./mech.controller.js";
+import { notifyAdmins, notifyUser } from "../utils/sendNotification.js";
 export  const getAllMechanics = async (req, res) => {
   console.log("getting mechs")
   try {
@@ -101,22 +102,22 @@ export const getAssignmentQueue = async (req, res) => {
           include: [
             {
               model: db.Severity,
-              as: "Severity", // must match association alias
+              as: "Severity",
             },
           ],
         },
       ],
 
       order: [
-        // 🔥 Priority first (from Severity table)
-        [
-          { model: db.Service, as: "service" },
-          { model: db.Severity, as: "Severity" },
-          "priority",
-          "ASC",
-        ],
+        // 1. 🔥 ESCALATED FIRST (isEscalated: true comes before false)
+        // Since true is usually 1 and false is 0, we use DESC for true first
+        ["isEscalated", "DESC"],
 
-        // 🔥 FIFO inside same priority
+        // 2. 🔥 CUSTOM PRIORITY (The 501, 567 values from Ticket table)
+        // Usually, lower numbers mean "top of the list"
+        ["priority", "ASC"],
+
+        // 3. 🔥 FIFO (Oldest tickets first for ties in priority)
         ["createdAt", "ASC"],
       ],
     });
@@ -137,10 +138,11 @@ export const getAssignmentQueue = async (req, res) => {
         description: ticket.description,
         imageUrl: ticket.imageUrl,
         createdAt: ticket.createdAt,
-
+        priority: ticket.priority, // Your custom rank
         severityName: severity?.name || "UNKNOWN",
-        severityPriority: severity?.priority ?? 999,
-
+        severityPriority: severity?.priority ?? 999, // Global severity rank
+        isEscalated: ticket.isEscalated,
+        status: ticket.status,
         slaAssignDeadline,
       };
     });
@@ -151,8 +153,6 @@ export const getAssignmentQueue = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch assignment queue" });
   }
 };
-
-
 
 export const getAllTickets = async (req, res) => {
   try {
@@ -340,12 +340,33 @@ export const acceptTicket = async (req, res) => {
     const assignedMechanic = await assignMechanicIfPossible(ticket);
 
     if (assignedMechanic) {
+      //notify assigned mechanic
+      await notifyAdmins(
+        "Ticket Assigned to Mechanic",
+        `Ticket "${ticket.title}" has been assigned to mechanic ${assignedMechanic.name}.`
+      )
+      //notify user that his ticket is accepted
+      await notifyUser(
+        ticket.clientId,
+        "Ticket Accepted & Assigned to Mechanic",
+        `Your ticket "${ticket.title}" has been accepted and assigned to a mechanic.`
+      );
       return res.json({
         message: `Ticket accepted and assigned to ${assignedMechanic.name}`,
         ticket,
       });
     }
-
+    //notify user that his ticket is accepted
+    await notifyUser(
+      ticket.clientId,
+      "Ticket Accepted",
+      `Your ticket "${ticket.title}" has been accepted and is awaiting assignment to a mechanic.`
+    );
+    //notify admins about unassigned ticket
+    await notifyAdmins(
+      "Ticket Accepted",
+      `Ticket "${ticket.title}" is accepted but not yet assigned to a mechanic.`
+    );
     return res.json({
       message: "Ticket accepted. Waiting for mechanic availability.",
       ticket,
@@ -374,6 +395,12 @@ export const cancelTicket = async (req, res) => {
       cancelledAt: new Date(),
     });
 
+    //notify user that his ticket is cancelled
+    await notifyUser(
+      ticket.clientId,
+      "Ticket Cancelled",
+      `Your ticket "${ticket.title}" has been cancelled.`
+    );
     return res.json({ message: "Ticket cancelled.", ticket });
   } catch (err) {
     console.error("CANCEL TICKET ERROR:", err);
@@ -524,42 +551,163 @@ export const addNewService = async (req, res) => {
   }
 };
 
-
-export const addInventoryItem = async (req, res) => {
+export const getIndustryStats = async (req, res) => {
   try {
-    const { name, sku, category, quantity, unitPrice, unit, minStock } = req.body;
-    // Basic validation
-    if (!name || !sku || !category || quantity == null || !unitPrice || !unit) {
-      return res.status(400).json({ message: "Missing required fields." });
-    }
-    const newItem = await db.Inventory.create({
-      name,
-      sku,
-      category,
-      quantity,
-      unitPrice,
-      unit,
-      minStock,
-      isActive: true,
+    // Run analytical queries in parallel for production performance
+    const [kpiData, technicianEfficiency, statusDistribution, inventoryStatus] =
+      await Promise.all([
+        // 1. Core KPIs - Note: Using exact case "isEscalated" from model
+        db.Ticket.findOne({
+          attributes: [
+            [Sequelize.fn("COUNT", Sequelize.col("id")), "totalTickets"],
+            [
+              Sequelize.fn(
+                "SUM",
+                Sequelize.literal(
+                  `CASE WHEN "status" = 'COMPLETED' THEN "cost" ELSE 0 END`
+                )
+              ),
+              "totalRevenue",
+            ],
+            [
+              Sequelize.fn(
+                "AVG",
+                Sequelize.literal(
+                  `CASE WHEN "status" = 'COMPLETED' THEN "cost" ELSE NULL END`
+                )
+              ),
+              "avgTicketValue",
+            ],
+            [
+              Sequelize.fn(
+                "COUNT",
+                Sequelize.literal(`CASE WHEN "isEscalated" = true THEN 1 END`)
+              ),
+              "escalationCount",
+            ],
+          ],
+          raw: true,
+        }),
+
+        // 2. Best Performing Mechanics [cite: 107, 108]
+        db.MechanicTask.findAll({
+          attributes: [
+            "mechanicId",
+            [
+              Sequelize.fn("COUNT", Sequelize.col("MechanicTask.id")),
+              "resolvedTickets",
+            ],
+            [
+              Sequelize.fn(
+                "AVG",
+                Sequelize.literal(
+                  `EXTRACT(EPOCH FROM ("completedAt" - "startedAt")) / 3600`
+                )
+              ),
+              "avgResolutionTime",
+            ],
+          ],
+          where: { completedAt: { [Op.ne]: null } }, // Only completed tasks [cite: 116]
+          include: [
+            {
+              model: db.User,
+              as: "mechanic",
+              attributes: ["name", "assignedCount"], // prevent overloading technicians [cite: 365, 382]
+            },
+          ],
+          group: ["mechanicId", "mechanic.id"],
+          order: [[Sequelize.literal('"resolvedTickets"'), "DESC"]],
+          limit: 5,
+        }),
+
+        // 3. Workload Distribution by Status [cite: 334, 342]
+        db.Ticket.findAll({
+          attributes: [
+            "status",
+            [Sequelize.fn("COUNT", Sequelize.col("Ticket.id")), "count"],
+          ],
+          group: ["status"],
+          raw: true,
+        }),
+
+        // 4. Critical Inventory (Stock levels vs Min Stock)
+        db.Inventory.findAll({
+          attributes: ["name", "quantity", "minStock", "unitPrice"],
+          where: {
+            quantity: { [Op.lte]: Sequelize.col("minStock") }, // Correct Sequelize syntax for column comparison [cite: 75, 89]
+          },
+          limit: 10,
+        }),
+      ]);
+
+    res.json({
+      metrics: {
+        revenue: parseFloat(kpiData.totalRevenue || 0),
+        ticketThroughput: parseInt(kpiData.totalTickets || 0),
+        avgOrderValue: parseFloat(kpiData.avgTicketValue || 0),
+        riskLevel: parseInt(kpiData.escalationCount || 0), // Fixed field name
+      },
+      leaderboard: technicianEfficiency,
+      inventory: inventoryStatus,
+      statusStats: statusDistribution,
+      lastUpdated: new Date(),
     });
-    return res.status(201).json({ message: "Inventory item added successfully.", item: newItem });
-  } catch (err) {
-    console.error("ADD INVENTORY ITEM ERROR:", err);
-    return res.status(500).json({ message: "Failed to add inventory item." });
+  } catch (error) {
+    console.error("Dashboard Analytics Error:", error);
+    res
+      .status(500)
+      .json({ error: "Internal Server Error during data aggregation" });
   }
 };
-export const deleteInventoryItem = async (req, res) => {
-  try{
-    const { id } = req.params;
-    const item = await db.Inventory.findByPk(id);
-    if(!item){
-      return res.status(404).json({message: "Item not found"});
-    }
-    await item.destroy();
-    return res.json({message: "Item deleted successfully"});
-  }catch(err){
-    console.error("DELETE INVENTORY ITEM ERROR:", err);
-    return res.status(500).json({ message: "Failed to delete inventory item." });
 
+
+
+export const markAsEscalated = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const ticket = await db.Ticket.findByPk(id);
+    if (!ticket) {
+      return res.status(403).json({ message: "Ticket not found" });
+    }
+
+    // Simply flip the boolean flag
+    await ticket.update({ isEscalated: true });
+
+    res.json({
+      success: true,
+      message: "Ticket marked as escalated",
+      isEscalated: true,
+    });
+  } catch (error) {
+    console.error("ESCALATION_ERROR:", error);
+    res.status(500).json({ message: "Failed to escalate ticket" });
   }
-}
+};
+export const updateTicketCustomPriority = async (req, res) => {
+  console.log("update priority")
+  try {
+    const { id } = req.params;
+    const { customPriority } = req.body;
+
+    const ticket = await db.Ticket.findByPk(id);
+    if (!ticket) {
+      return res.status(403).json({ message: "Ticket not found" });
+    }
+
+    // Update the custom priority number
+    // High numbers will push it down, low numbers bring it to the top (depending on your sort)
+    await ticket.update({
+      priority: parseInt(customPriority, 10),
+    });
+
+    res.json({
+      success: true,
+      message: `Priority set to ${customPriority}`,
+      priority: ticket.priority,
+    });
+  } catch (error) {
+    console.error("PRIORITY_UPDATE_ERROR:", error);
+    res.status(500).json({ message: "Failed to update custom priority" });
+  }
+};
