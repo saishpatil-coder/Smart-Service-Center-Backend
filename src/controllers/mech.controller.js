@@ -32,7 +32,9 @@ export const assignMechanicIfPossible = async (ticket) => {
       assignedAt: now,
       status: "ASSIGNED",
     });
-
+    await freeMech.update({
+      assignedCount:1
+    })
     await db.MechanicTask.create({
       ticketId: ticket.id,
       mechanicId: freeMech.id,

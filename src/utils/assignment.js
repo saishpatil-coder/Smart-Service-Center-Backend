@@ -5,8 +5,9 @@ import { notifyUser } from "./sendNotification.js";
 export async function assignNextTaskInQueueIfExists(mechanic) {
   try {
     // Max 1 active task per mechanic
+    console.log("mechanic assigned count : ",mechanic.assignedCount)
     
-    if (mechanic.assignedCount >= 1) return null;
+    if (mechanic.assignedCount != 0) return null;
     const mechanicId = mechanic.id;
 
     // Fetch next ticket from ACCEPTED queue using the global sorting logic
