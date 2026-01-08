@@ -13,10 +13,9 @@ export  const registerUser = async (req, res) => {
       });
     }
     const hashed = await bcrypt.hash(password, 10);
-
     const user = await db.User.create({
       name,
-      email,
+      email: email.toLowerCase(),
       mobile,
       password: hashed,
       role: role || "CLIENT",
@@ -28,11 +27,9 @@ export  const registerUser = async (req, res) => {
     return res.status(500).json({ message: "Registration failed" });
   }
 };
-
-export  const loginUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log("Login attempt:", email);
 
     if (!email || !password) {
       return res
@@ -40,7 +37,10 @@ export  const loginUser = async (req, res) => {
         .json({ message: "Email and password are required" });
     }
 
-    const user = await db.User.findOne({ where: { email } });
+    const user = await db.User.findOne({
+      where: { email: email.toLowerCase() },
+    });
+
     if (!user) return res.status(400).json({ message: "Invalid credentials" });
 
     const match = await bcrypt.compare(password, user.password);
@@ -51,30 +51,32 @@ export  const loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-res.cookie("token", token, {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  path: "/",
-  maxAge: 7 * 24 * 60 * 60 * 1000,
-});
 
+    // Sanitize user object to remove sensitive data
+    const { password: _, ...safeUser } = user.toJSON();
 
-    // sendNotification(user.fcmToken,"logged in ")
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true, // Requires HTTPS
+      sameSite: "none", // Necessary for cross-site (CORS) environments
+      path: "/",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
 
-    res.json({ message: "Logged in", user });
+    res.json({ message: "Logged in", user: safeUser });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(500).json({ message: "Login failed" });
   }
 };
-
-export  const logoutUser = (req, res) => {
+export const logoutUser = (req, res) => {
+  // Attributes must match the login configuration to clear properly
   res.cookie("token", "", {
-    expires: new Date(0),
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "none",
+    path: "/",
+    expires: new Date(0), // Instantly expires the cookie
   });
 
   res.json({ message: "Logged out" });
