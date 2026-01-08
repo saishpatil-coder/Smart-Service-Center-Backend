@@ -18,7 +18,8 @@ export async function sendNotification(token, title, body) {
 }
 
 export async function notifyUser(userId, title, body) {
-  const tokens = await db.UserFcmToken.findAll({
+  try{
+    const tokens = await db.UserFcmToken.findAll({
     where: { userId },
   });
   const notifications = await db.Notification.create({
@@ -32,14 +33,20 @@ export async function notifyUser(userId, title, body) {
   if (!fcmTokens.length) return;
 
 
-  await admin.messaging().sendEachForMulticast({
+  let res = await admin.messaging().sendEachForMulticast({
     tokens: fcmTokens,
     notification: { title, body },
   });
+  console.log("res : ", res);
+  console.log("res err : ",res.responces)
+  }catch(err){
+    console.log("Notify user error : " , err)
+  }
 }
 
 export async function notifyAdmins(title, body) {
-  const adminUsers = await db.User.findAll({
+  try{
+    const adminUsers = await db.User.findAll({
     where: { role: "ADMIN" },
     include: [{ model: db.UserFcmToken, as: "fcmTokens" }],
   });
@@ -61,6 +68,10 @@ export async function notifyAdmins(title, body) {
     tokens: allTokens,
     notification: { title, body },
   });
+  }
+catch(err){
+  console.log("Notify Admins error : " ,err);
+}
 }
 
 export async function getNotificationsForUser(req, res) {
