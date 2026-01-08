@@ -53,10 +53,12 @@ export  const loginUser = async (req, res) => {
     );
 res.cookie("token", token, {
   httpOnly: true,
-  secure: true, // MUST be true on HTTPS (Render)
-  sameSite: "none", // MUST be none for cross-origin
+  secure: true,
+  sameSite: "none",
+  path: "/",
   maxAge: 7 * 24 * 60 * 60 * 1000,
 });
+
 
     // sendNotification(user.fcmToken,"logged in ")
 
