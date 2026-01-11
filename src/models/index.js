@@ -57,8 +57,8 @@ db.User.hasMany(db.MechanicTask, {
   as: "tasks",
   foreignKey: "mechanicId",
 });
-db.User.hasMany(db.UserFcmToken, {as:"fcmTokens", foreignKey: "userId" });
-db.UserFcmToken.belongsTo(db.User, { foreignKey: "userId" });
+db.User.hasMany(db.UserFcmTokens, {as:"fcmTokens", foreignKey: "userId" });
+db.UserFcmTokens.belongsTo(db.User, { foreignKey: "userId" });
 db.User.hasMany(db.Notification, { foreignKey: "userId" });
 db.Notification.belongsTo(db.User, { foreignKey: "userId" });
 

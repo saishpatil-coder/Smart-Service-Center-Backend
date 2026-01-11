@@ -16,6 +16,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL, {
 export default sequelize;
 
 
+
 // const sequelize = new Sequelize(
 //   process.env.DB_NAME,
 //   process.env.DB_USER,

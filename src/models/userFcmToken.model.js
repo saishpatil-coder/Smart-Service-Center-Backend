@@ -1,9 +1,9 @@
-// models/userFcmToken.model.js
+// models/UserFcmTokens.model.js
 import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
-  const UserFcmToken = sequelize.define(
-    "UserFcmToken",
+  const UserFcmTokens = sequelize.define(
+    "UserFcmTokens",
      {
     token: {
       type: DataTypes.TEXT,
@@ -24,7 +24,7 @@ export default (sequelize) => {
   }
 );
 
-  return UserFcmToken;
+  return UserFcmTokens;
 };
 
 // import { DataTypes } from "sequelize";

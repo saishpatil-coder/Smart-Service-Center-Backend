@@ -29,6 +29,7 @@ export  const registerUser = async (req, res) => {
 };
 export const loginUser = async (req, res) => {
   try {
+    console.log("logging in ")
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -63,6 +64,7 @@ export const loginUser = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
+    console.log("Login Function : ","Logged in")
     res.json({ message: "Logged in", user: safeUser });
   } catch (err) {
     console.error(err);
@@ -70,6 +72,7 @@ export const loginUser = async (req, res) => {
   }
 };
 export const logoutUser = (req, res) => {
+  console.log("logging out")
   // Attributes must match the login configuration to clear properly
   res.cookie("token", "", {
     httpOnly: true,
@@ -102,21 +105,23 @@ export  const getMe = async (req, res) => {
 // controllers/user.controller.js
 export async function saveFcmToken(req, res) {
   const { token, deviceInfo } = req.body;
+  console.log("storing fcm token ")
   if (!token) { 
     return res.status(400).json({ message: "FCM token is required" });
   }
   console.log("token : ",token.substring(0,5))
   console.log("deviceInfo : ",deviceInfo.substring(0,5))
   try {
-      await db.UserFcmToken.findOrCreate({
-        where: { token },
-        defaults: {
-          userId: req.user.id
-        },
-      });
+let resp = await db.UserFcmTokens.findOrCreate({
+  where: { token: token },
+  defaults: {
+    userId: req.user.id,
+  },
+});
+console.log("login responce ",resp)
 
+      notifyUser(req.user.id, "Logged in", "You have been logged in successfully.");
       res.json({ success: true });
-      // notifyUser(req.user.id, "Logged out", "You have been logged out successfully.");
   } catch (err) {
     console.error("SAVE FCM TOKEN ERROR:", err);
     res.status(500).json({ message: "Error saving FCM token" });
@@ -125,18 +130,19 @@ export async function saveFcmToken(req, res) {
 }
 
 export async function removeFcmToken(req, res) {
+  console.log("removing fcm token")
   const { token } = req.body;
   if (!token) {
     return res.status(400).json({ message: "FCM token is required" });
   }
 try{
-    await db.UserFcmToken.destroy({
+    let res = await db.UserFcmTokens.destroy({
     where: {
       userId: req.user.id,
       token: token,
     },
-
   });
+  console.log("logout responce : ",res)
 }catch(err){
   console.error("REMOVE FCM TOKEN ERROR:", err);
   res.status(500).json({ message: "Error removing FCM token" });
