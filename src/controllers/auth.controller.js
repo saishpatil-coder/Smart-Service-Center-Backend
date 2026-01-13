@@ -101,34 +101,45 @@ export  const getMe = async (req, res) => {
     return res.status(401).json({ user: null });
   }
 };
-
 // controllers/user.controller.js
 export async function saveFcmToken(req, res) {
   const { token, deviceInfo } = req.body;
-  console.log("storing fcm token ")
+
+  // 1. Validation check
   if (!token) { 
     return res.status(400).json({ message: "FCM token is required" });
   }
-  console.log("token : ",token.substring(0,5))
-  console.log("deviceInfo : ",deviceInfo.substring(0,5))
-  try {
-let resp = await db.UserFcmTokens.findOrCreate({
-  where: { token: token },
-  defaults: {
-    userId: req.user.id,
-  },
-});
-console.log("login responce ",resp)
 
-      notifyUser(req.user.id, "Logged in", "You have been logged in successfully.");
-      res.json({ success: true });
+  try {
+    // 2. Multi-device support: Use findOrCreate to ensure uniqueness 
+    // Note: Ensure the model name matches your 'UserFcmToken' definition [cite: 74]
+    const [fcmInstance, created] = await db.UserFcmTokens.findOrCreate({
+      where: { token: token },
+      defaults: {
+        userId: req.user.id,
+        deviceInfo: deviceInfo || "Unknown Device" // Store device info for audit logs 
+      },
+    });
+
+    // 3. If token already exists but belongs to a different user, update it
+    if (!created && fcmInstance.userId !== req.user.id) {
+      fcmInstance.userId = req.user.id;
+      await fcmInstance.save();
+    }
+
+    // 4. Trigger real-time confirmation notification [cite: 43, 75]
+    // This utilizes the Firebase Admin SDK to send a "Logged in" alert [cite: 69, 76]
+    await notifyUser(req.user.id, "Security Alert", "New login detected on your account.");
+    
+    res.json({ 
+      success: true, 
+      message: created ? "Token registered" : "Token synchronized" 
+    });
   } catch (err) {
     console.error("SAVE FCM TOKEN ERROR:", err);
     res.status(500).json({ message: "Error saving FCM token" });
   }
-
 }
-
 export async function removeFcmToken(req, res) {
   console.log("removing fcm token")
   const { token } = req.body;
