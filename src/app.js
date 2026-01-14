@@ -8,6 +8,8 @@ import clientRoutes from "./routes/client.routes.js";
 import mechRoutes from "./routes/mech.routes.js";
 import severityRoutes from "./routes/severity.routes.js";
 import notifyRoutes from "./routes/notification.routes.js";
+import msgRoutes from "./routes/ticketMessage.routes.js"
+import feedbackRoutes from "./routes/feedback.routes.js"
 import { verifyUser } from "./middleware/auth.middleware.js";
 import { removeFcmToken, saveFcmToken } from "./controllers/auth.controller.js";
 import { markAsEscalated, updateTicketCustomPriority } from "./controllers/admin.controller.js";
@@ -35,6 +37,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/client",clientRoutes)
 // Health Check
 app.use("/api/mechanic",mechRoutes);
+app.use("/api/feedback",feedbackRoutes);
+app.use("/api/messages",msgRoutes);
 // FCM Token Routes
 app.use("/api/notifications", notifyRoutes);
 app.use("/api/severities", severityRoutes);

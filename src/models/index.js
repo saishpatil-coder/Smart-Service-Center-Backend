@@ -68,6 +68,54 @@ db.Notification.belongsTo(db.User, { foreignKey: "userId" });
 // db.Invoice.belongsTo(db.User, { as: "client", foreignKey: "clientId" });
 // db.Invoice.belongsTo(db.User, { as: "mechanic", foreignKey: "mechanicId" });
 
+// Ticket ↔ Messages
+db.Ticket.hasMany(db.TicketMessage, {
+  foreignKey: "ticketId",
+  as: "messages",
+});
+db.TicketMessage.belongsTo(db.Ticket, {
+  foreignKey: "ticketId",
+});
+
+// User ↔ Messages
+db.User.hasMany(db.TicketMessage, {
+  foreignKey: "senderId",
+});
+db.TicketMessage.belongsTo(db.User, {
+  foreignKey: "senderId",
+});
+
+// Ticket ↔ Customer Feedback
+db.Ticket.hasOne(db.CustomerFeedback, {
+  foreignKey: "ticketId",
+});
+db.CustomerFeedback.belongsTo(db.Ticket, {
+  foreignKey: "ticketId",
+});
+
+// User ↔ Customer Feedback
+db.User.hasMany(db.CustomerFeedback, {
+  foreignKey: "customerId",
+});
+db.CustomerFeedback.belongsTo(db.User, {
+  foreignKey: "customerId",
+});
+
+// Ticket ↔ Mechanic Feedback
+db.Ticket.hasOne(db.MechanicFeedback, {
+  foreignKey: "ticketId",
+});
+db.MechanicFeedback.belongsTo(db.Ticket, {
+  foreignKey: "ticketId",
+});
+
+// User ↔ Mechanic Feedback
+db.User.hasMany(db.MechanicFeedback, {
+  foreignKey: "mechanicId",
+});
+db.MechanicFeedback.belongsTo(db.User, {
+  foreignKey: "mechanicId",
+});
 
 
 
