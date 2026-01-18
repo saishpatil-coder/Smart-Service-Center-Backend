@@ -61,14 +61,14 @@ export async function assignNextTaskInQueueIfExists(mechanic) {
     });
 
     // Notify Mechanic
-    await notifyUser(
+    notifyUser(
       mechanicId,
       "New Task Assigned",
       `You have been assigned a new task: ${nextTicket.title}`
     );
 
     // Notify Client
-    await notifyUser(
+    notifyUser(
       nextTicket.clientId,
       "Task Assigned",
       `Your task "${nextTicket.title}" has been assigned to a mechanic.`

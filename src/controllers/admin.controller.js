@@ -1,9 +1,9 @@
 import { Op, Sequelize, where } from "sequelize";
-import db from "../models/index.js"
+import db from "../models/index.js";
 import { assignMechanicIfPossible } from "./mech.controller.js";
 import { notifyAdmins, notifyUser } from "../utils/sendNotification.js";
-export  const getAllMechanics = async (req, res) => {
-  console.log("getting mechs")
+export const getAllMechanics = async (req, res) => {
+  console.log("getting mechs");
   try {
     const mechanics = await db.User.findAll({
       where: { role: "MECHANIC" },
@@ -18,7 +18,7 @@ export  const getAllMechanics = async (req, res) => {
   }
 };
 
-export  const deleteMechanic = async (req, res) => {
+export const deleteMechanic = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -35,19 +35,20 @@ export  const deleteMechanic = async (req, res) => {
     console.log("DELETE MECHANIC ERROR:", err);
     return res.status(500).json({ message: "Failed to delete mechanic." });
   }
-}
-
+};
 
 export const getAllPendingTickets = async (req, res) => {
-  console.log("getting pending tickets");
-
   try {
-    const tickets = await db.Ticket.findAll({
+    const page = parseInt(req.query.page) || 1;
+    const limit = 10; // Number of tickets per page
+    const offset = (page - 1) * limit;
+    console.log("page : ", parseInt(req.query.page));
+
+    const { count, rows: tickets } = await db.Ticket.findAndCountAll({
       where: { status: "PENDING" },
-      order: [
-        ["priority", "ASC"], // High priority first
-        ["createdAt", "ASC"], // Oldest first
-      ],
+      limit,
+      offset,
+      order: [["createdAt", "ASC"]],
       include: [
         {
           model: db.Service,
@@ -57,35 +58,30 @@ export const getAllPendingTickets = async (req, res) => {
         { model: db.User, as: "client" },
       ],
     });
-    // ⭐ Process and compute REQUIRED dynamic fields
+
     const enrichedTickets = tickets.map((t) => {
       const severity = t.service?.Severity;
       const maxAccept = severity?.max_accept_minutes ?? 0;
-      const created = new Date(t.createdAt);
-      const slaAcceptDeadline = new Date(created.getTime() + maxAccept * 60000);
+      const slaAcceptDeadline = new Date(
+        new Date(t.createdAt).getTime() + maxAccept * 60000
+      );
 
       return {
         id: t.id,
         title: t.title,
         description: t.description,
         imageUrl: t.imageUrl,
-        createdAt: t.createdAt,
-
-        // ⭐ fields expected by frontend
         severityName: severity?.name,
-        priority: severity?.priority,
-
         slaAcceptDeadline,
-        // including original ticket + relations
-        status: t.status,
-        client: t.client,
-        service: t.service,
       };
     });
 
-    return res.json({ tickets: enrichedTickets });
+    return res.json({
+      tickets: enrichedTickets,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    });
   } catch (err) {
-    console.error("GET PENDING ERROR:", err);
     return res.status(500).json({ message: "Failed to fetch pending tickets" });
   }
 };
@@ -156,62 +152,68 @@ export const getAssignmentQueue = async (req, res) => {
 
 export const getAllTickets = async (req, res) => {
   try {
+    // 1. Extract pagination and filters from query
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+    const status = req.query.status;
 
-    const tickets = await db.Ticket.findAll({
+    // 2. Build where clause
+    const whereClause = {};
+    if (status && status !== "ALL") {
+      whereClause.status = status;
+    }
+
+    // 3. FindAndCountAll is better for pagination
+    const { count, rows: tickets } = await db.Ticket.findAndCountAll({
+      where: whereClause,
+      limit,
+      offset,
       order: [["createdAt", "DESC"]],
       include: [
         {
           model: db.Service,
           as: "service",
-          include: [
-            {
-              model: db.Severity,
-              as: "Severity",
-            },
-          ],
+          include: [{ model: db.Severity, as: "Severity" }],
         },
       ],
     });
 
     const formatted = tickets.map((t) => {
       const severity = t.service?.Severity;
-
       const createdAt = new Date(t.createdAt);
-
-      const slaAcceptDeadline = severity
-        ? new Date(createdAt.getTime() + severity.max_accept_minutes * 60000)
-        : null;
-
-      const slaAssignDeadline = severity
-        ? new Date(createdAt.getTime() + severity.max_assign_minutes * 60000)
-        : null;
 
       return {
         id: t.id,
         title: t.title,
+        status: t.status,
+        createdAt: t.createdAt,
+        severityName: severity?.name || "UNKNOWN",
+        slaAcceptDeadline: severity
+          ? new Date(createdAt.getTime() + severity.max_accept_minutes * 60000)
+          : null,
+        slaAssignDeadline: severity
+          ? new Date(createdAt.getTime() + severity.max_assign_minutes * 60000)
+          : null,
         description: t.description,
         imageUrl: t.imageUrl,
-        status: t.status,
         cost: t.cost,
         priority: t.priority,
-        createdAt: t.createdAt,
-
-        // derived (view model)
-        severityName: severity?.name || "UNKNOWN",
         expectedCompletionHours: t.service?.defaultExpectedHours || null,
-        slaAcceptDeadline,
-        slaAssignDeadline,
       };
     });
 
-    res.json({ tickets: formatted });
+    res.json({
+      tickets: formatted,
+      totalPages: Math.ceil(count / limit),
+      totalItems: count,
+      currentPage: page,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to fetch tickets" });
   }
 };
-
-
 
 export const getTicketById = async (req, res) => {
   try {
@@ -232,9 +234,9 @@ export const getTicketById = async (req, res) => {
       return res.status(404).json({ message: "Ticket not found" });
     }
     const mechanicTask = await db.MechanicTask.findOne({
-      where : [{ticketId : ticket.id}]
-    })
-    console.log(mechanicTask?.partsUsed??"no parts used")
+      where: [{ ticketId: ticket.id }],
+    });
+    console.log(mechanicTask?.partsUsed ?? "no parts used");
     // console.log(ticket)
 
     // console.log(ticket.mechanic)
@@ -298,7 +300,7 @@ export const getTicketById = async (req, res) => {
       // Relations
       client: ticket.client,
       mechanic: ticket.mechanic,
-      partsUsed : mechanicTask?.partsUsed??"",
+      partsUsed: mechanicTask?.partsUsed ?? "",
       service: {
         id: service.id,
         serviceTitle: service.serviceTitle,
@@ -313,7 +315,6 @@ export const getTicketById = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch ticket" });
   }
 };
-
 
 export const acceptTicket = async (req, res) => {
   try {
@@ -344,7 +345,7 @@ export const acceptTicket = async (req, res) => {
       await notifyAdmins(
         "Ticket Assigned to Mechanic",
         `Ticket "${ticket.title}" has been assigned to mechanic ${assignedMechanic.name}.`
-      )
+      );
       //notify user that his ticket is accepted
       await notifyUser(
         ticket.clientId,
@@ -377,12 +378,11 @@ export const acceptTicket = async (req, res) => {
   }
 };
 
-
 export const cancelTicket = async (req, res) => {
   try {
     const { id } = req.params;
     const user = req.user;
-    console.log("Cancelling ticket")
+    console.log("Cancelling ticket");
 
     const ticket = await db.Ticket.findByPk(id);
     if (!ticket) return res.status(404).json({ message: "Ticket not found." });
@@ -391,7 +391,7 @@ export const cancelTicket = async (req, res) => {
       status: "CANCELLED",
       completedAt: new Date(),
       cancelledBy: user.role === "ADMIN" ? "ADMIN" : "CLIENT",
-      cancellationReason: req.body?.reason?? null,
+      cancellationReason: req.body?.reason ?? null,
       cancelledAt: new Date(),
     });
 
@@ -407,8 +407,6 @@ export const cancelTicket = async (req, res) => {
     res.status(500).json({ message: "Failed to cancel ticket." });
   }
 };
-
-
 
 export const getMechanicWithTasks = async (req, res) => {
   try {
@@ -503,7 +501,6 @@ export const getMechanicWithTasks = async (req, res) => {
   }
 };
 
-
 export const addNewService = async (req, res) => {
   try {
     const {
@@ -553,114 +550,144 @@ export const addNewService = async (req, res) => {
 
 export const getIndustryStats = async (req, res) => {
   try {
-    // Run analytical queries in parallel for production performance
-    const [kpiData, technicianEfficiency, statusDistribution, inventoryStatus] =
+    const { timeframe = "all" } = req.query;
+
+    // 1. Build Time Filter
+    let timeWhere = {};
+    if (timeframe !== "all") {
+      const date = new Date();
+      if (timeframe === "24h") date.setHours(date.getHours() - 24);
+      if (timeframe === "7d") date.setDate(date.getDate() - 7);
+      if (timeframe === "30d") date.setDate(date.getDate() - 30);
+      timeWhere = { createdAt: { [Op.gte]: date } };
+    }
+
+    const [kpiData, statusDistribution, leaderboard, inventoryStatus] =
       await Promise.all([
-        // 1. Core KPIs - Note: Using exact case "isEscalated" from model
+        // KPI: REVENUE & RISK
         db.Ticket.findOne({
+          where: { ...timeWhere, isPaid: true },
           attributes: [
-            [Sequelize.fn("COUNT", Sequelize.col("id")), "totalTickets"],
+            [Sequelize.fn("COUNT", Sequelize.col("Ticket.id")), "totalTickets"],
             [
-              Sequelize.fn(
-                "SUM",
-                Sequelize.literal(
-                  `CASE WHEN "status" = 'COMPLETED' THEN "cost" ELSE 0 END`
-                )
-              ),
+              // Ticket Cost + Sum of parts in MechanicTask JSONB
+              Sequelize.literal(`SUM(
+              COALESCE("Ticket"."cost", 0) + 
+              COALESCE((
+                SELECT SUM((part->>'price')::numeric * (part->>'quantity')::numeric)
+                FROM "MechanicTasks", jsonb_array_elements("partsUsed") AS part
+                WHERE "MechanicTasks"."ticketId" = "Ticket"."id"
+              ), 0)
+            )`),
               "totalRevenue",
             ],
             [
-              Sequelize.fn(
-                "AVG",
-                Sequelize.literal(
-                  `CASE WHEN "status" = 'COMPLETED' THEN "cost" ELSE NULL END`
-                )
-              ),
-              "avgTicketValue",
+              // Risk Level Logic: isEscalated OR (Status=ACCEPTED and Time > max_assign_minutes)
+              Sequelize.literal(`COUNT(CASE 
+              WHEN "Ticket"."isEscalated" = true 
+              OR (
+                "Ticket"."status" = 'ACCEPTED' AND 
+                NOW() > ("Ticket"."createdAt" + (interval '1 minute' * "service->Severity"."max_assign_minutes"))
+              ) THEN 1 END)`),
+              "riskLevel",
             ],
-            [
-              Sequelize.fn(
-                "COUNT",
-                Sequelize.literal(`CASE WHEN "isEscalated" = true THEN 1 END`)
-              ),
-              "escalationCount",
-            ],
+          ],
+          include: [
+            {
+              model: db.Service,
+              as: "service",
+              attributes: [],
+              include: [{ model: db.Severity, as: "Severity", attributes: [] }],
+            },
           ],
           raw: true,
         }),
 
-        // 2. Best Performing Mechanics [cite: 107, 108]
+        // KPI: STATUS DISTRIBUTION
+        db.Ticket.findAll({
+          where: timeWhere,
+          attributes: [
+            "status",
+            [Sequelize.fn("COUNT", Sequelize.col("id")), "count"],
+          ],
+          group: ["status"],
+          raw: true,
+        }),
+        // KPI: MECHANIC EFFICIENCY
         db.MechanicTask.findAll({
           attributes: [
-            "mechanicId",
+            // Explicitly reference the table to avoid ambiguity
+            [Sequelize.col("MechanicTask.mechanicId"), "mechanicId"],
             [
               Sequelize.fn("COUNT", Sequelize.col("MechanicTask.id")),
               "resolvedTickets",
             ],
             [
-              Sequelize.fn(
-                "AVG",
-                Sequelize.literal(
-                  `EXTRACT(EPOCH FROM ("completedAt" - "startedAt")) / 3600`
-                )
-              ),
-              "avgResolutionTime",
+              Sequelize.literal(`AVG(
+        (NULLIF("Ticket->service"."defaultExpectedHours", 0) / 
+        NULLIF(EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600, 0)) * 100
+      )`),
+              "efficiencyScore",
             ],
           ],
-          where: { completedAt: { [Op.ne]: null } }, // Only completed tasks [cite: 116]
+          where: { completedAt: { [Op.ne]: null } },
           include: [
+            { model: db.User, as: "mechanic", attributes: ["name"] },
             {
-              model: db.User,
-              as: "mechanic",
-              attributes: ["name", "assignedCount"], // prevent overloading technicians [cite: 365, 382]
+              model: db.Ticket,
+              attributes: [],
+              include: [{ model: db.Service, as: "service", attributes: [] }],
             },
           ],
-          group: ["mechanicId", "mechanic.id"],
-          order: [[Sequelize.literal('"resolvedTickets"'), "DESC"]],
+          // Update group by to use the explicit table name
+          group: [
+            "MechanicTask.mechanicId",
+            "mechanic.id",
+            "Ticket->service.id",
+          ],
+          order: [[Sequelize.literal('"efficiencyScore"'), "DESC"]],
           limit: 5,
         }),
-
-        // 3. Workload Distribution by Status [cite: 334, 342]
-        db.Ticket.findAll({
-          attributes: [
-            "status",
-            [Sequelize.fn("COUNT", Sequelize.col("Ticket.id")), "count"],
-          ],
-          group: ["status"],
-          raw: true,
-        }),
-
-        // 4. Critical Inventory (Stock levels vs Min Stock)
+        // KPI: CRITICAL INVENTORY
         db.Inventory.findAll({
+          where: { quantity: { [Op.lte]: Sequelize.col("minStock") } },
           attributes: ["name", "quantity", "minStock", "unitPrice"],
-          where: {
-            quantity: { [Op.lte]: Sequelize.col("minStock") }, // Correct Sequelize syntax for column comparison [cite: 75, 89]
-          },
-          limit: 10,
+          limit: 5,
         }),
       ]);
 
     res.json({
       metrics: {
-        revenue: parseFloat(kpiData.totalRevenue || 0),
-        ticketThroughput: parseInt(kpiData.totalTickets || 0),
-        avgOrderValue: parseFloat(kpiData.avgTicketValue || 0),
-        riskLevel: parseInt(kpiData.escalationCount || 0), // Fixed field name
+        revenue: parseFloat(kpiData?.totalRevenue || 0),
+        ticketThroughput: parseInt(kpiData?.totalTickets || 0),
+        riskLevel: parseInt(kpiData?.riskLevel || 0),
+        avgEfficiency: leaderboard.length
+          ? (
+              leaderboard.reduce(
+                (acc, curr) =>
+                  acc + parseFloat(curr.dataValues.efficiencyScore || 0),
+                0
+              ) / leaderboard.length
+            ).toFixed(1)
+          : 0,
       },
-      leaderboard: technicianEfficiency,
+      leaderboard: leaderboard.map((l) => ({
+        name: l.mechanic.name,
+        resolved: parseInt(l.dataValues.resolvedTickets),
+        efficiency: Math.min(
+          parseFloat(l.dataValues.efficiencyScore || 0),
+          100
+        ).toFixed(1),
+      })),
       inventory: inventoryStatus,
       statusStats: statusDistribution,
       lastUpdated: new Date(),
     });
   } catch (error) {
-    console.error("Dashboard Analytics Error:", error);
-    res
-      .status(500)
-      .json({ error: "Internal Server Error during data aggregation" });
+    console.error("Industrial Stats Error:", error);
+    res.status(500).json({ error: "Aggregation failed" });
   }
 };
-
-
 
 export const markAsEscalated = async (req, res) => {
   try {
@@ -685,7 +712,7 @@ export const markAsEscalated = async (req, res) => {
   }
 };
 export const updateTicketCustomPriority = async (req, res) => {
-  console.log("update priority")
+  console.log("update priority");
   try {
     const { id } = req.params;
     const { customPriority } = req.body;
@@ -709,5 +736,261 @@ export const updateTicketCustomPriority = async (req, res) => {
   } catch (error) {
     console.error("PRIORITY_UPDATE_ERROR:", error);
     res.status(500).json({ message: "Failed to update custom priority" });
+  }
+};
+
+// Helper for Timeframe
+const getTimeWhere = (timeframe) => {
+  if (timeframe === "all") return {};
+  const date = new Date();
+  if (timeframe === "24h") date.setHours(date.getHours() - 24);
+  if (timeframe === "7d") date.setDate(date.getDate() - 7);
+  if (timeframe === "30d") date.setDate(date.getDate() - 30);
+  return { createdAt: { [Op.gte]: date } };
+};
+
+// 1. REVENUE (Heavy JSONB Query)
+export const getRevenueStat = async (req, res) => {
+  const timeWhere = getTimeWhere(req.query.timeframe);
+  console.log("Getting revenue : ");
+
+  const labourData = await db.Ticket.findOne({
+    where: { ...timeWhere, isPaid: true },
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("cost")), "totalLabourCost"],
+    ],
+    raw: true,
+  });
+
+  console.log("Total Labour Revenue:", labourData.totalLabourCost);
+  const partsData = await db.MechanicTask.findOne({
+    attributes: [
+      [
+        Sequelize.literal(`
+        SUM(
+          COALESCE(
+            (
+              SELECT SUM((part->>'price')::numeric * (part->>'quantity')::numeric)
+              FROM jsonb_array_elements("MechanicTask"."partsUsed") AS part
+            ), 0
+          )
+        )
+      `),
+        "totalPartsCost",
+      ],
+    ],
+    // Optional: Join with Tickets to filter by isPaid or date
+    include: [
+      {
+        model: db.Ticket,
+        where: { ...timeWhere, isPaid: true },
+        attributes: [], // We don't need ticket columns, just the filter
+      },
+    ],
+    raw: true,
+  });
+
+  console.log("Total Parts Revenue:", partsData.totalPartsCost);
+  res.json({
+    value: parseFloat(
+      partsData.totalPartsCost + labourData.totalLabourCost || 0
+    ),
+  });
+};
+
+// 2. THROUGHPUT (Fast Count)
+export const getThroughputStat = async (req, res) => {
+  const timeWhere = getTimeWhere(req.query.timeframe);
+  const count = await db.Ticket.count({ where: timeWhere });
+  res.json({ value: count });
+};
+
+// 3. AVG EFFICIENCY (Calculation Heavy)
+export const getEfficiencyStat = async (req, res) => {
+  try {
+    const stats = await db.MechanicTask.findOne({
+      where: {
+        completedAt: { [Op.ne]: null },
+        startedAt: { [Op.ne]: null },
+      },
+      attributes: [
+        // 1. Total Tasks Completed till now
+        [
+          Sequelize.fn("COUNT", Sequelize.col("MechanicTask.id")),
+          "totalCompleted",
+        ],
+
+        // 2. Tasks completed WITHIN or UNDER expected time
+        [
+          Sequelize.literal(`
+            COUNT(CASE 
+              WHEN (EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600) 
+                   <= COALESCE("Ticket->service"."defaultExpectedHours", 0) 
+              THEN 1 
+            END)
+          `),
+          "onTimeTasks",
+        ],
+
+        // 3. Efficiency Calculation (Ratio of On-Time to Total)
+        [
+          Sequelize.literal(`
+            ROUND(
+              (COUNT(CASE 
+                WHEN (EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600) 
+                     <= COALESCE("Ticket->service"."defaultExpectedHours", 0) 
+                THEN 1 
+              END)::numeric / 
+              NULLIF(COUNT("MechanicTask"."id"), 0)) * 100, 
+            1)
+          `),
+          "efficiencyPercentage",
+        ],
+      ],
+      include: [
+        {
+          model: db.Ticket,
+          attributes: [],
+          required: true,
+          include: [
+            {
+              model: db.Service,
+              as: "service",
+              attributes: [],
+              required: true,
+            },
+          ],
+        },
+      ],
+      raw: true,
+    });
+
+    return res.json({
+      totalCompleted: parseInt(stats?.totalCompleted || 0),
+      onTimeTasks: parseInt(stats?.onTimeTasks || 0),
+      value: parseFloat(stats?.efficiencyPercentage || 0).toFixed(1),
+    });
+  } catch (error) {
+    console.error("Efficiency Stats Error:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+// 4. RISK LEVEL (SLA Check)
+export const getRiskStat = async (req, res) => {
+  const count = await db.Ticket.count({
+    where: { isEscalated: true }, // Simplified for speed, add SLA logic if needed
+  });
+  res.json({ value: count });
+};
+
+// 5. INVENTORY COUNT (Stock Check)
+export const getInventoryStat = async (req, res) => {
+  const count = await db.Inventory.count({
+    where: { quantity: { [Op.lte]: Sequelize.col("minStock") } },
+  });
+  res.json({ value: count });
+};
+
+// 6. MECHANIC LEADERBOARD (Top 5 by Efficiency)
+export const getLeaderboardStat = async (req, res) => {
+  try {
+    const stats = await db.MechanicTask.findAll({
+      where: {
+        completedAt: { [Op.ne]: null },
+        startedAt: { [Op.ne]: null },
+      },
+      attributes: [
+        "mechanicId",
+        // 1. Total Tasks Completed
+        [
+          Sequelize.fn("COUNT", Sequelize.col("MechanicTask.id")),
+          "totalCompleted",
+        ],
+
+        // 2. Tasks Completed Within or Under Expected Time
+        [
+          Sequelize.literal(`
+            COUNT(CASE 
+              WHEN (EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600) 
+                   <= "Ticket->service"."defaultExpectedHours" 
+              THEN 1 
+            END)
+          `),
+          "onTimeTasks",
+        ],
+
+        // 3. Overall Efficiency Percentage
+        [
+          Sequelize.literal(`
+            ROUND(
+              (COUNT(CASE 
+                WHEN (EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600) 
+                     <= "Ticket->service"."defaultExpectedHours" 
+                THEN 1 
+              END)::numeric / 
+              NULLIF(COUNT("MechanicTask"."id"), 0)) * 100, 
+            1)
+          `),
+          "efficiency",
+        ],
+      ],
+      include: [
+        {
+          model: db.Ticket,
+          attributes: [],
+          required: true,
+          include: [
+            {
+              model: db.Service,
+              as: "service",
+              attributes: [],
+              required: true,
+            },
+          ],
+        },
+        // Include Mechanic User Details for the frontend
+        {
+          model: db.User,
+          as: "mechanic",
+          attributes: ["name"],
+        },
+      ],
+      group: ['"MechanicTask"."mechanicId"', '"mechanic.id"'],
+      raw: true,
+    });
+
+    return res.json(stats);
+  } catch (error) {
+    console.error("Mechanic Stats Error:", error);
+    return res.status(500).json({ message: "Error fetching performance data" });
+  }
+};
+
+// 7. STATUS DISTRIBUTION (Pie Chart Data)
+export const getStatusDistributionStat = async (req, res) => {
+  try {
+    const timeWhere = getTimeWhere(req.query.timeframe);
+
+    const data = await db.Ticket.findAll({
+      where: timeWhere,
+      attributes: [
+        "status",
+        [Sequelize.fn("COUNT", Sequelize.col("id")), "count"],
+      ],
+      group: ["status"],
+      raw: true,
+    });
+
+    // Format for Recharts consumption
+    const distribution = data.map((s) => ({
+      name: s.status?.replace("_", " ") || "N/A",
+      value: parseInt(s.count || 0),
+    }));
+
+    res.json({ value: distribution });
+  } catch (error) {
+    console.error("Distribution Error:", error);
+    res.status(500).json({ error: "Failed to fetch distribution" });
   }
 };

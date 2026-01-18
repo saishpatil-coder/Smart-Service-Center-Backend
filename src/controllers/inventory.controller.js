@@ -5,9 +5,8 @@ const { Inventory } = db;
 export const getInventory = async (req, res) => {
   try {
     const inventory = await Inventory.findAll({
-      order: [["createdAt", "DESC"]],
+    
     });
-
     return res.status(200).json({
       success: true,
       items: inventory,
@@ -61,5 +60,31 @@ export const deleteInventoryItem = async (req, res) => {
     return res
       .status(500)
       .json({ message: "Failed to delete inventory item." });
+  }
+};
+
+export const updateInventoryItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, sku, category, quantity, unitPrice, unit, minStock } =
+      req.body;
+    const item = await db.Inventory.findByPk(id);
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+    await item.update({
+      name,
+      sku,
+      category,
+      quantity,
+      unitPrice,
+      unit,
+      minStock,
+    });
+    return res.json({ message: "Item updated successfully", item });
+  }
+  catch (err) {
+    console.error("UPDATE INVENTORY ITEM ERROR:", err);
+    return res.status(500).json({ message: "Failed to update inventory item." });
   }
 };

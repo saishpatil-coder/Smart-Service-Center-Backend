@@ -1,5 +1,4 @@
 import db from "../models/index.js";
-import cloudinary from "../config/cloudinary.js";
 
 export const sendMessage = async (req, res) => {
   try {

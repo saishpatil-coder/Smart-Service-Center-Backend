@@ -77,14 +77,3 @@ export const getAllServices = async (req, res) => {
   }
 };
 
-export const getSeverities = async(req,res)=>{
-  try{
-    const severities=await db.Severity.findAll({  
-      order:[["priority","ASC"]]
-    });
-    res.json({severities});
-  }catch(err){
-    console.error("GET SEVERITIES ERROR:", err);
-    res.status(500).json({ message: "Failed to fetch severities" });
-  }
-}

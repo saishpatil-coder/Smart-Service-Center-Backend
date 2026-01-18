@@ -13,18 +13,26 @@ import {
   getIndustryStats,
   markAsEscalated,
   updateTicketCustomPriority,
+  getRevenueStat,
+  getThroughputStat,
+  getEfficiencyStat,
+  getRiskStat,
+  getInventoryStat,
+  getStatusDistributionStat,
+  getLeaderboardStat
 } from "../controllers/admin.controller.js";
 import {
   getAllServices,
   addService,
-  getSeverities,
 } from "../controllers/service.controller.js";
 import {
   addInventoryItem,
   deleteInventoryItem,
   getInventory,
+  updateInventoryItem,
 } from "../controllers/inventory.controller.js";
 import express from "express";
+import { getSeverities } from "../controllers/severity.controller.js";
 
 const router = express.Router();
 
@@ -43,7 +51,7 @@ ADMIN — Inventory management routes
 router.get("/inventory", getInventory);
 router.post("/inventory", verifyAdmin, addInventoryItem);
 router.delete("/inventory/:id", verifyAdmin, deleteInventoryItem);
-
+router.patch("/inventory/:id", verifyAdmin, updateInventoryItem);
 /* ----------------------------------------------------
 ADMIN — Ticket management routes
 ----------------------------------------------------- */
@@ -58,7 +66,6 @@ router.patch("/ticket/:id/cancel", verifyAdmin, cancelTicket);
 router.get("/pending-tickets", verifyAdmin, getAllPendingTickets);
 //get assignment queue
 router.get("/assignment-queue", verifyAdmin, getAssignmentQueue);
-// Remove /tickets if your axios call is already including it correctly
 // Or ensure the path matches exactly what axios is sending.
 /* ----------------------------------------------------
    ADMIN — Mechanic management routes
@@ -74,5 +81,17 @@ router.post("/add-mechanic", verifyAdmin, registerUser);
 
 // Dashboard Stats Route
 router.get("/dashboard/industry-stats", verifyAdmin, getIndustryStats);
-
+router.get("/dashboard/revenue", verifyAdmin,getRevenueStat);
+router.get("/dashboard/throughput", verifyAdmin,getThroughputStat);
+router.get("/dashboard/efficiency", verifyAdmin,getEfficiencyStat);
+router.get("/dashboard/risk", verifyAdmin,getRiskStat);
+router.get(
+  "/dashboard/inventory-count",
+  verifyAdmin,getInventoryStat
+);
+router.get("/dashboard/leaderboard", verifyAdmin,getLeaderboardStat);
+router.get(
+  "/dashboard/status-distribution",
+  verifyAdmin,getStatusDistributionStat
+);
 export default router;

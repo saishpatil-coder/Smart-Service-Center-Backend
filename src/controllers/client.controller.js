@@ -26,7 +26,10 @@ export const createTicket = async (req, res) => {
     });
     console.log("created")
     //send notification to 
-    await notifyAdmins("New Ticket Created", `A new ticket (#${ticket.id}) has been created.`);
+    await notifyAdmins("New Ticket Created", `A new ticket (#${ticket.id}) has been created.`,
+      "REDIRECT",
+      { ticketId: ticket.id }
+    );
     return res.json({ message: "Ticket created", ticket });
   } catch (err) {
     console.log(err);

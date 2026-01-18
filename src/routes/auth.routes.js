@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import { registerUser,loginUser,logoutUser,getMe } from "../controllers/auth.controller.js";
 import { Router } from "express";
-import { getInventory } from "../controllers/inventory.controller.js";
 
 const router = Router();
 dotenv.config();

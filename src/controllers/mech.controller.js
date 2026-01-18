@@ -407,7 +407,6 @@ try{
     message: "You are now unavailable for work",
   });
 }catch(err){
-
     console.error("PUNCH OUT ERROR:", err);
     res.status(500).json({ message: "Error punching out" });
 }

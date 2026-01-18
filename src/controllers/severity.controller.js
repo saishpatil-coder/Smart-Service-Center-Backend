@@ -6,7 +6,7 @@ export const getSeverities = async (req, res) => {
     const severities = await db.Severity.findAll({
       order: [["priority", "ASC"]],
     });
-    res.json({ success: true, severities });
+    res.json({ severities });
   } catch (err) {
     console.error("GET SEVERITIES ERROR:", err);
     res.status(500).json({ message: "Failed to fetch severities" });
