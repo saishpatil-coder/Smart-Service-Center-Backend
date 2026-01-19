@@ -267,7 +267,10 @@ export const payInvoice = async (req, res) => {
         paymentMethod:"CASH",
       },
       {
-        where: { clientId }
+        where: { clientId : clientId ,
+          status :"COMPLETED"
+          }
+
       }
     );
 
