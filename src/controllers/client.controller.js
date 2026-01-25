@@ -1,14 +1,13 @@
 import { QueryTypes } from "sequelize";
 import db from "../models/index.js";
 import { notifyAdmins } from "../utils/sendNotification.js";
-
 export const createTicket = async (req, res) => {
-  console.log("creting ticket")
+  console.log("creting ticket");
   try {
     const userId = req.user.id;
-    const { serviceId, description } = req.body;
+    const { serviceId, description, image } = req.body;
     // Cloudinary URL (multer provides it)
-    const imageUrl = req.file ? req.file.path : null;
+    const imageUrl = image || null;
 
     const service = await db.Service.findByPk(serviceId);
     if (!service) return res.status(404).json({ message: "Service not found" });
@@ -22,13 +21,15 @@ export const createTicket = async (req, res) => {
       cost: service.defaultCost,
       imageUrl,
       status: "PENDING",
-      priority:severity.priority
+      priority: severity.priority,
     });
-    console.log("created")
-    //send notification to 
-    await notifyAdmins("New Ticket Created", `A new ticket (#${ticket.id}) has been created.`,
+    console.log("created");
+    //send notification to
+    await notifyAdmins(
+      "New Ticket Created",
+      `A new ticket (#${ticket.id}) has been created.`,
       "REDIRECT",
-      { ticketId: ticket.id }
+      { ticketId: ticket.id },
     );
     return res.json({ message: "Ticket created", ticket });
   } catch (err) {
@@ -36,6 +37,7 @@ export const createTicket = async (req, res) => {
     res.status(500).json({ message: "Failed to create ticket" });
   }
 };
+
 
 export const getTicketsByUser = async (req, res) => {
   try {

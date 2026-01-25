@@ -1,5 +1,6 @@
 import db from "../models/index.js";
 import { assignNextTaskInQueueIfExists } from "../utils/assignment.js";
+import logger from "../utils/logger.js";
 import { notifyUser } from "../utils/sendNotification.js";
 // src/controllers/mechanicDashboard.controller.js
 
@@ -61,6 +62,7 @@ export const assignMechanicIfPossible = async (ticket) => {
 export const getMechanicTasks = async (req, res) => {
   try {
     const mechId = req.user.id;
+    logger.info(`Getting tasks by mech : ${mechId}`);
 
     const tasks = await db.Ticket.findAll({
       where: {
@@ -75,6 +77,7 @@ export const getMechanicTasks = async (req, res) => {
       ],
       order: [["updatedAt", "DESC"]],
     });
+    logger.info(`Tasks : ${tasks.length}`)
 
     // Shape response for frontend
     const formattedTasks = tasks.map((t) => ({
@@ -309,6 +312,7 @@ export const addPartsUsedToTask = async (req, res) => {
 
 export const getMechanicDashboardSummary = async (req, res) => {
   const mechanicId = req.user.id;
+  logger.info(`Getting dashboard summary for mechanic : ${mechanicId}`);
 
   const [assigned, inProgress, completedToday] = await Promise.all([
     db.MechanicTask.count({
@@ -328,6 +332,7 @@ export const getMechanicDashboardSummary = async (req, res) => {
       },
     }),
   ]);
+  logger.info(`Dashboard Summary - Assigned: ${assigned}, In Progress: ${inProgress}, Completed Today: ${completedToday}`);
 
   res.json({
     summary: {

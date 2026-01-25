@@ -8,3 +8,5 @@ sscms-51853-firebase-adminsdk-fbsvc-9f9f6cc1f7.json
 *.json
 firebase-adminsdk-*.json
 src/config/*firebase-adminsdk*.json
+/logs
+logs

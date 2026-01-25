@@ -77,14 +77,17 @@ export async function notifyAdmins(title, body, type = "INFO", additionalData = 
       include: [{ model: db.UserFcmTokens, as: "fcmTokens" }],
     });
     console.log("body : ", body);
-    for (const adminUser of adminUsers) {
-      await db.Notification.create({
-        userId: adminUser.id,
-        title,
-        message: body,
-        type: "INFO",
-      });
-    }
+    await Promise.all(
+      adminUsers.map((adminUser) =>
+        db.Notification.create({
+          userId: adminUser.id,
+          title,
+          message: body,
+          type: "INFO",
+        }),
+      ),
+    );
+
     const allTokens = adminUsers.flatMap((user) =>
       user.fcmTokens.map((t) => t.token),
     );

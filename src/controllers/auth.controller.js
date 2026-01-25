@@ -2,6 +2,7 @@ import db from "../models/index.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { notifyUser } from "../utils/sendNotification.js";
+import logger from "../utils/logger.js";
 export const registerUser = async (req, res) => {
   try {
     const { name, email, mobile, password, role } = req.body;
@@ -23,16 +24,17 @@ export const registerUser = async (req, res) => {
 
     return res.json({ message: "Account created", user });
   } catch (err) {
-    console.log(err);
+    logger.info(err);
     return res.status(500).json({ message: "Registration failed" });
   }
 };
 export const loginUser = async (req, res) => {
   try {
-    console.log("logging in ");
+    logger.info("Login Function : Attempting login");
     const { email, password } = req.body;
 
     if (!email || !password) {
+      logger.warn("Login Function : Missing email or password");
       return res
         .status(400)
         .json({ message: "Email and password are required" });
@@ -42,10 +44,16 @@ export const loginUser = async (req, res) => {
       where: { email: email.toLowerCase() },
     });
 
-    if (!user) return res.status(400).json({ message: "Invalid credentials" });
+    if (!user) {
+      logger.warn("Login Function : Invalid credentials");
+      return res.status(400).json({ message: "User not Found"});
+    }
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.status(400).json({ message: "Invalid credentials" });
+    if (!match) {
+      logger.warn("Login Function : Password do not match");
+      return res.status(400).json({ message: "Password do not Match" });
+    }
 
     const token = jwt.sign(
       { id: user.id, role: user.role },
@@ -63,16 +71,15 @@ export const loginUser = async (req, res) => {
       path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
-
-    console.log("Login Function : ", "Logged in");
+    logger.info("Login user : Logged in successfully.")
     res.json({ message: "Logged in", user: safeUser });
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     return res.status(500).json({ message: "Login failed" });
   }
 };
 export const logoutUser = (req, res) => {
-  console.log("logging out");
+  logger.info("logging out");
   // Attributes must match the login configuration to clear properly
   res.cookie("token", "", {
     httpOnly: true,
@@ -85,12 +92,13 @@ export const logoutUser = (req, res) => {
   res.json({ message: "Logged out" });
 };
 export const getMe = async (req, res) => {
-  console.log("geeting");
+  logger.info("GetMe : Getting User");
   try {
     const token = req.cookies.token;
 
     // 1. No token present
     if (!token) {
+      logger.debug("GetMe : No token present");
       return res.status(401).json({ user: null });
     }
 
@@ -122,12 +130,14 @@ export const getMe = async (req, res) => {
     return res.status(401).json({ user: null });
   }
 };
+
 // controllers/user.controller.js
 export async function saveFcmToken(req, res) {
   const { token, deviceInfo } = req.body;
 
   // 1. Validation check
   if (!token) {
+    logger.warn("SaveFcmToken : token not found")
     return res.status(400).json({ message: "FCM token is required" });
   }
 
@@ -161,26 +171,26 @@ export async function saveFcmToken(req, res) {
       message: created ? "Token registered" : "Token synchronized",
     });
   } catch (err) {
-    console.error("SAVE FCM TOKEN ERROR:", err);
+    logger.error("SAVE FCM TOKEN ERROR:", err);
     res.status(500).json({ message: "Error saving FCM token" });
   }
 }
 export async function removeFcmToken(req, res) {
-  console.log("removing fcm token");
+  logger.info("removing fcm token");
   const { token } = req.body;
   if (!token) {
     return res.status(400).json({ message: "FCM token is required" });
   }
   try {
-    let res = await db.UserFcmTokens.destroy({
+    let responce = await db.UserFcmTokens.destroy({
       where: {
         userId: req.user.id,
         token: token,
       },
     });
-    console.log("logout responce : ", res);
+    logger.info("logout responce : ", responce);
   } catch (err) {
-    console.error("REMOVE FCM TOKEN ERROR:", err);
+    logger.error("REMOVE FCM TOKEN ERROR:", err);
     res.status(500).json({ message: "Error removing FCM token" });
   }
 

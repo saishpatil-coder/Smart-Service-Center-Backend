@@ -109,13 +109,17 @@ export function startTicketExpiryCron() {
           { where: { id: { [Op.in]: escalateTicketIds } } }
         );
 
-        for (const item of escalateTicketsClients) {
-          await notifyUser(
-            item.clientId,
-            "Ticket Escalated",
-            `We are prioritizing your ticket "${item.title}" as it has exceeded the standard assignment time.`
-          );
-        }
+        await Promise.allSettled(
+          escalateTicketsClients.map((item) =>
+            notifyUser(
+              item.clientId,
+              "Ticket Escalated",
+              `We are prioritizing your ticket "${item.title}" as it has exceeded the standard assignment time.`
+            )
+          )
+        );
+        
+        
 
         await notifyAdmins(
           "Critical: Tickets Auto-Escalated",

@@ -48,7 +48,10 @@ export const getAllPendingTickets = async (req, res) => {
       where: { status: "PENDING" },
       limit,
       offset,
-      order: [["createdAt", "ASC"]],
+      order: [
+        ["priority", "ASC"],
+        ["createdAt", "ASC"],
+      ],
       include: [
         {
           model: db.Service,
@@ -154,7 +157,9 @@ export const getAllTickets = async (req, res) => {
   try {
     // 1. Extract pagination and filters from query
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const rawLimit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const limit = rawLimit > 50 ? 50 : rawLimit; // Max limit of 50
     const offset = (page - 1) * limit;
     const status = req.query.status;
 
@@ -164,11 +169,17 @@ export const getAllTickets = async (req, res) => {
       whereClause.status = status;
     }
 
+    if (search) {
+      whereClause[Op.or] = [
+        { title: { [Op.iLike]: `%${search}%` } }
+            ];
+    }
     // 3. FindAndCountAll is better for pagination
     const { count, rows: tickets } = await db.Ticket.findAndCountAll({
       where: whereClause,
       limit,
       offset,
+      distinct: true,
       order: [["createdAt", "DESC"]],
       include: [
         {
