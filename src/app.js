@@ -12,7 +12,7 @@ import msgRoutes from "./routes/ticketMessage.routes.js"
 import feedbackRoutes from "./routes/feedback.routes.js"
 import { verifyUser } from "./middleware/auth.middleware.js";
 import { removeFcmToken, saveFcmToken } from "./controllers/auth.controller.js";
-import { markAsEscalated, updateTicketCustomPriority } from "./controllers/admin.controller.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 const app = express();
 dotenv.config();
 // Middlewares
@@ -43,9 +43,9 @@ app.use("/api/messages",msgRoutes);
 app.use("/api/notifications", notifyRoutes);
 app.use("/api/severities", severityRoutes);
 app.post("/api/users/save-fcm-token", verifyUser, saveFcmToken);
-app.post("/api/users/remove-fcm-token", verifyUser, removeFcmToken);
+app.post("/api/users/remove-fcm-token", removeFcmToken);
 
-
+app.use(errorHandler);
 app.get("/", (req, res) => {
   res.json({ message: "Backend is running!" });
 });

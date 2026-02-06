@@ -1,54 +1,32 @@
 import winston from "winston";
 
-// Define log levels (severity)
-const levels = {
-  error: 0,
-  warn: 1,
-  info: 2,
-  http: 3,
-  debug: 4,
-};
+const { combine, timestamp, printf, colorize, json } = winston.format;
 
-// Define colors for the console
-const colors = {
-  error: "red",
-  warn: "yellow",
-  info: "green",
-  http: "magenta",
-  debug: "white",
-};
+// Custom format to print Message + Stack Trace + Metadata
+const logFormat = printf(({ level, message, timestamp, stack, ...meta }) => {
+  // If there is a stack trace, prefer that over the message
+  const stackTrace = stack ? `\nStack Trace:\n${stack}` : "";
 
-// Tell winston about our colors
-winston.addColors(colors);
+  // If there is extra metadata (url, method, user), stringify it
+  const metaString = Object.keys(meta).length ? JSON.stringify(meta) : "";
 
-// Define the format of the logs
-const format = winston.format.combine(
-  winston.format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
-  winston.format.colorize({ all: true }), // Colorize everything
-  winston.format.printf(
-    (info) => `${info.timestamp} [${info.level}]: ${info.message}`,
-  ),
-);
+return `${timestamp} [${level}]: ${message} ${metaString}${stackTrace}`;});
 
-// Create the logger instance
 const logger = winston.createLogger({
-  levels,
-  format,
+  level: "info",
+  // 1. Use JSON format for files (Best for searching/parsing later)
+  format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), json()),
   transports: [
-    // 1. Print to console (always)
-    new winston.transports.Console(),
+    new winston.transports.File({ filename: "error.log", level: "error" }),
+    new winston.transports.File({ filename: "combined.log" }),
 
-    // 2. Save errors to a file (optional, good for production)
-    new winston.transports.File({
-      filename: "logs/error.log",
-      level: "error",
-      format: winston.format.uncolorize(), // Remove colors for file
-    }),
-
-    // 3. Save all logs to a combined file
-    new winston.transports.File({
-      filename: "logs/all.log",
-      format: winston.format.uncolorize(),
+    // 2. Use Custom Colorized format for Console
+    new winston.transports.Console({
+      format: combine(
+        colorize(),
+        timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+        logFormat,
+      ),
     }),
   ],
 });

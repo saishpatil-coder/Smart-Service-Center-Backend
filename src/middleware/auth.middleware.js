@@ -1,78 +1,47 @@
 import jwt from "jsonwebtoken";
 
-export const verifyAdmin = (req, res, next) => {
-  const token = req.cookies.token;
+/**
+ * Higher-Order Function to generate middleware
+ * This keeps your code DRY (Don't Repeat Yourself)
+ */
+const authorize = (allowedRoles = []) => {
+  return (req, res, next) => {
+    const token = req.cookies.token;
 
-  if (!token) return res.status(401).json({ message: "Not authenticated." });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (decoded.role !== "ADMIN") {
-      return res.status(403).json({ message: "Access denied. Admins only." });
+    // 1. Check for token
+    // ⚠️ CRITICAL: Must return 401 (not 403) so frontend knows to try refreshing
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "Not authenticated. No token found." });
     }
 
-    req.user = decoded; // attach user details to request
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token." });
-  }
-};
+    try {
+      // 2. Verify JWT
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-export const verifyClient = (req, res, next) => {
-  const token = req.cookies.token;
+      // 3. Role Check (if specific roles are required)
+      if (allowedRoles.length > 0 && !allowedRoles.includes(decoded.role)) {
+        return res.status(403).json({
+          message: `Access denied. Role '${decoded.role}' is not authorized.`,
+        });
+      }
 
-  if (!token) return res.status(401).json({ message: "Not authenticated." });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (decoded.role !== "CLIENT") {
-      return res.status(403).json({ message: "Access denied. Admins only." });
+      // 4. Attach user to request
+      req.user = decoded;
+      next();
+    } catch (err) {
+      // 5. JWT Error (Expired/Invalid)
+      // Returns 401 to trigger frontend refresh loop
+      return res.status(401).json({ message: "Invalid or expired token." });
     }
-
-    req.user = decoded; // attach user details to request
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token." });
-  }
+  };
 };
 
+// Export specific middleware functions to maintain your existing import structure
+export const verifyAdmin = authorize(["ADMIN"]);
+export const verifyMechanic = authorize(["MECHANIC"]);
+export const verifyClient = authorize(["CLIENT"]);
 
-export const verifyMechanic = (req, res, next) => {
-  const token = req.cookies.token;
-
-  if (!token) return res.status(401).json({ message: "Not authenticated." });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    if (decoded.role !== "MECHANIC") {
-      return res.status(403).json({ message: "Access denied. Mechanics only." });
-    }
-
-    req.user = decoded; // attach user details to request
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid or expired token." });
-  }
-};
-
-
-export const verifyUser = (req, res, next) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    console.log("token not available")
-    return res.status(401).json({ message: "Not authenticated." });
-  }
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    req.user = decoded; // attach user details to request
-    next();
-  } catch (err) {
-    console.log("Authorization error : " ,err)
-    return res.status(401).json({ message: "Invalid or expired token." });
-  }
-};
+// Allows ANY authenticated user (Admin, Mechanic, or Client)
+export const verifyUser = authorize([]);

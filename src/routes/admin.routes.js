@@ -10,7 +10,6 @@ import {
   acceptTicket,
   cancelTicket,
   getMechanicWithTasks,
-  getIndustryStats,
   markAsEscalated,
   updateTicketCustomPriority,
   getRevenueStat,
@@ -24,6 +23,8 @@ import {
 import {
   getAllServices,
   addService,
+  toggleServiceStatus,
+  updateService,
 } from "../controllers/service.controller.js";
 import {
   addInventoryItem,
@@ -38,6 +39,8 @@ const router = express.Router();
 
 // Add new service
 router.post("/services", verifyAdmin, addService);
+router.patch("/services/:id/status", verifyAdmin, toggleServiceStatus);
+router.put("/services/:id",verifyAdmin,updateService)
 router.post("/ticket/:id/escalate", verifyAdmin, markAsEscalated);
 router.post("/ticket/:id/priority", verifyAdmin, updateTicketCustomPriority);
 // List services (admin or public usage)
@@ -80,7 +83,6 @@ router.get("/mechanics/:id", verifyAdmin, getMechanicWithTasks);
 router.post("/add-mechanic", verifyAdmin, registerUser);
 
 // Dashboard Stats Route
-router.get("/dashboard/industry-stats", verifyAdmin, getIndustryStats);
 router.get("/dashboard/revenue", verifyAdmin,getRevenueStat);
 router.get("/dashboard/throughput", verifyAdmin,getThroughputStat);
 router.get("/dashboard/efficiency", verifyAdmin,getEfficiencyStat);

@@ -13,13 +13,14 @@ export default (sequelize) => {
       },
       // Foreign Key: Links to the User (Customer, Mechanic, or Admin) [cite: 74, 118]
       userId: {
-        type: DataTypes.INTEGER, // Use INTEGER or UUID based on your User model [cite: 74]
+        type: DataTypes.UUID, // Use INTEGER or UUID based on your User model [cite: 74]
         allowNull: false,
       },
       // Metadata: For security and identity verification [cite: 45, 98]
       deviceInfo: {
         type: DataTypes.STRING,
         allowNull: true,
+        
       },
     },
     {

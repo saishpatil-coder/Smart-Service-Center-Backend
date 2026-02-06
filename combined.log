@@ -1,0 +1,478 @@
+{"level":"info","message":"removing fcm token","timestamp":"2026-01-31 14:24:48"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-01-31 14:24:48"}
+{"level":"error","message":"column \"toke\" does not exist","method":"POST","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.bulkDelete (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:403:12)\n    at async RefreshToken.destroy (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1838:16)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/auth.controller.js:108:5","timestamp":"2026-01-31 14:24:48","url":"/api/auth/logout","user":"Guest"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-01-31 14:26:57"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-01-31 14:26:57"}
+{"level":"error","message":"column \"toke\" does not exist","method":"POST","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.bulkDelete (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:403:12)\n    at async RefreshToken.destroy (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1838:16)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/auth.controller.js:108:5","timestamp":"2026-01-31 14:26:57","url":"/api/auth/logout","user":"Guest"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-01-31 14:27:21"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-01-31 14:27:22"}
+{"level":"info","message":"User logged out","timestamp":"2026-01-31 14:27:22"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-01-31 14:27:28"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-01-31 14:27:28"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-01-31 14:27:32"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-01-31 14:27:32"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-01-31 14:28:53"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-01-31 14:28:53"}
+{"level":"info","message":"User logged out","timestamp":"2026-01-31 14:28:53"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-01-31 14:28:57"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-01-31 14:28:57"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service ee354828-ec79-4c18-96a7-181d8fd71d79","timestamp":"2026-01-31 14:29:04"}
+{"level":"error","message":"don't create ticket","method":"POST","stack":"Error: don't create ticket\n    at file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/client.controller.js:16:9\n    at file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/utils/asyncHandler.js:4:21\n    at Layer.handleRequest (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\route.js:157:13)\n    at multerMiddleware (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\multer\\lib\\make-middleware.js:19:41)\n    at Layer.handleRequest (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\route.js:157:13)\n    at file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/middleware/auth.middleware.js:32:7\n    at Layer.handleRequest (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\router\\lib\\route.js:157:13)","timestamp":"2026-01-31 14:29:04","url":"/api/client/add-ticket","user":"d72c1454-9982-4420-b95d-d4eed7de3afe"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-01 07:46:28"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-01 07:46:28"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-01 07:47:07"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-01 07:47:08"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 5fa4f954-a680-4145-b40b-72b9488896fc","timestamp":"2026-02-01 07:49:51"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 5fa4f954-a680-4145-b40b-72b9488896fc","timestamp":"2026-02-01 07:49:55"}
+{"level":"info","message":"CreateTicket : Ticket #34e851ef-87f1-412f-a21d-493a96e4ff03 created successfully","timestamp":"2026-02-01 07:49:55"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service ee354828-ec79-4c18-96a7-181d8fd71d79","timestamp":"2026-02-01 07:57:27"}
+{"level":"info","message":"CreateTicket : Ticket #e560cf2b-d3ee-476c-bf52-d43bd71896c4 created successfully","timestamp":"2026-02-01 07:57:27"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-01 07:57:48"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-01 07:57:48"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-01 07:57:48"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-01 07:57:52"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-01 07:57:52"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-01 07:58:13"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-01 07:58:13"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-01 07:58:17"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-01 07:58:17"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 3bcd681e-700e-4a8e-ab09-250a8bfd719c","timestamp":"2026-02-01 07:58:34"}
+{"level":"info","message":"CreateTicket : Ticket #a85ec40f-8123-485d-8e37-3f664d26e71c created successfully","timestamp":"2026-02-01 07:58:34"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-01 07:59:05"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-01 07:59:05"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-01 07:59:05"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-01 07:59:34"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-01 07:59:34"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-01 07:59:34"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-01 07:59:37"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-01 07:59:38"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-01 08:01:07"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-01 08:01:07"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-01 08:01:07"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-01 08:01:12"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-01 08:01:12"}
+{"level":"info","message":"PayInvoice : Processing payment for user d72c1454-9982-4420-b95d-d4eed7de3afe","timestamp":"2026-02-01 08:02:32"}
+{"level":"info","message":"PayInvoice : 3 tickets marked as paid for user d72c1454-9982-4420-b95d-d4eed7de3afe","timestamp":"2026-02-01 08:02:33"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-01 08:02:48"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-01 08:02:48"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-01 08:02:48"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-01 08:26:46"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-01 08:26:46"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-01 08:35:27"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-01 08:35:27"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-01 08:35:27"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-01 08:42:44"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-01 08:42:45"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-01 08:42:45"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 17:15:56"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 17:15:56"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:16:48"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:16:51"}
+{"level":"error","message":"column Ticket.serviceId does not exist","method":"GET","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Ticket.findAll (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/client.controller.js:54:19","timestamp":"2026-02-02 17:16:53","url":"/api/client/tickets","user":"ca496602-863d-4d03-8452-8bf00ecfb2ce"}
+{"level":"error","message":"column Ticket.serviceId does not exist","method":"GET","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Ticket.findAll (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/client.controller.js:54:19","timestamp":"2026-02-02 17:16:53","url":"/api/client/tickets","user":"ca496602-863d-4d03-8452-8bf00ecfb2ce"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 17:33:41"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 17:33:41"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:33:48"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-02-02 17:33:48"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:33:54"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:33:55"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 17:34:11"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:34:45"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:34:46"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 17:44:40"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:44:45"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:44:46"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 17:45:59"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:51:51"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-02-02 17:51:52"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:52:19"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:52:20"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 17:53:27"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 17:53:27"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 17:56:55"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 17:56:56"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:02:19"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 18:02:19"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 18:02:19"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:02:20"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 18:02:20"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 18:02:20"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 18:11:54"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:12:02"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 18:12:02"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 18:12:08"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 18:12:12"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:15:54"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 18:15:54"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 18:15:54"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 18:18:51"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 18:18:53"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 19c41bae-a299-40f2-9e49-ad8a65780f2c","timestamp":"2026-02-02 18:19:25"}
+{"level":"info","message":"CreateTicket : Ticket #596487c2-49a9-40f1-8039-95f041bccf85 created successfully","timestamp":"2026-02-02 18:19:27"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:21:06"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 18:21:06"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 18:21:06"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:21:08"}
+{"level":"info","message":"Getting tasks by mech : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:21:08"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:21:11"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:21:11"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:21:12"}
+{"level":"info","message":"Getting tasks by mech : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:21:12"}
+{"level":"error","message":"insert or update on table \"UserFcmTokens\" violates foreign key constraint \"UserFcmTokens_userId_fkey\"","method":"POST","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.insert (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:308:21)\n    at async model.save (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:2490:35)\n    at async UserFcmTokens.create (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1362:12)\n    at async UserFcmTokens.findOrCreate (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1422:25)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/auth.controller.js:233:34","timestamp":"2026-02-02 18:21:15","url":"/api/users/save-fcm-token","user":"0265d354-979b-4d8b-8e15-ffd6f20a3f68"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:21:16"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:21:17"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:21:59"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 18:21:59"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 18:21:59"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:22:00"}
+{"level":"info","message":"Getting tasks by mech : 0265d354-979b-4d8b-8e15-ffd6f20a3f68","timestamp":"2026-02-02 18:22:00"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:22:01"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:22:01"}
+{"level":"error","message":"insert or update on table \"UserFcmTokens\" violates foreign key constraint \"UserFcmTokens_userId_fkey\"","method":"POST","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.insert (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:308:21)\n    at async model.save (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:2490:35)\n    at async UserFcmTokens.create (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1362:12)\n    at async UserFcmTokens.findOrCreate (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1422:25)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/auth.controller.js:233:34","timestamp":"2026-02-02 18:22:05","url":"/api/users/save-fcm-token","user":"0265d354-979b-4d8b-8e15-ffd6f20a3f68"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:25:43"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 18:25:43"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 18:25:52"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 18:25:53"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:53"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:53"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:25:54"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:54"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:25:54"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:54"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:25:55"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:25:55"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:25:59"}
+{"level":"info","message":"Tasks : 0","timestamp":"2026-02-02 18:26:00"}
+{"level":"info","message":"Dashboard Summary - Assigned: 0, In Progress: 0, Completed Today: 0","timestamp":"2026-02-02 18:26:00"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 18:26:05"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 18:26:06"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-02 18:35:20"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-02 18:35:20"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 18:35:21"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:35:31"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 18:35:31"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 18:40:57"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 18:40:59"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 18:44:59"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 18:44:59"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 18:56:54"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 18:56:57"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 18:56:59"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 18:56:59"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 18:59:31"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 18:59:33"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 19:12:57"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 19:12:59"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 19:25:50"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 19:25:50"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 19:26:41"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 19:26:42"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 19:28:57"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 19:28:59"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 19:33:56"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 19:33:56"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 19:33:56"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 19:34:04"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 19:34:04"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 19:34:04"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 19:44:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 19:44:58"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 20:01:15"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 20:01:27"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 20:16:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 20:16:57"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 20:32:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 20:32:57"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 20:48:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 20:48:57"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 21:04:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 21:05:02"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 21:20:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 21:21:00"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:22:41"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 21:22:41"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 21:22:56"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 21:22:58"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 21:22:58"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 21:22:58"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 21:23:00"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 21:23:00"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 21:23:01"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 21:23:01"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 21:23:02"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 21:23:03"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 21:36:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 21:37:02"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 21:37:16"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 21:37:22"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 21:37:28"}
+{"level":"error","message":"Client network socket disconnected before secure TLS connection was established","method":"GET","stack":"SequelizeConnectionError: Client network socket disconnected before secure TLS connection was established\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:145:24)\n    at Client._handleErrorWhileConnecting (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:336:19)\n    at Client._handleErrorEvent (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at TLSSocket.reportStreamError (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:57:12)\n    at TLSSocket.emit (node:events:524:28)\n    at emitErrorNT (node:internal/streams/destroy:169:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:128:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)","timestamp":"2026-02-02 21:37:57","url":"/api/admin/dashboard/risk?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Client network socket disconnected before secure TLS connection was established","method":"GET","stack":"SequelizeConnectionError: Client network socket disconnected before secure TLS connection was established\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:145:24)\n    at Client._handleErrorWhileConnecting (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:336:19)\n    at Client._handleErrorEvent (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at TLSSocket.reportStreamError (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:57:12)\n    at TLSSocket.emit (node:events:524:28)\n    at emitErrorNT (node:internal/streams/destroy:169:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:128:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)","timestamp":"2026-02-02 21:37:57","url":"/api/admin/dashboard/inventory-count?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Connection terminated unexpectedly","method":"GET","stack":"SequelizeConnectionError: Connection terminated unexpectedly\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:149:20)\n    at Connection.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:149:18)\n    at Object.onceWrapper (node:events:638:28)\n    at Connection.emit (node:events:524:28)\n    at Socket.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:62:12)\n    at Socket.emit (node:events:536:35)\n    at TCP.<anonymous> (node:net:343:12)","timestamp":"2026-02-02 21:38:04","url":"/api/admin/dashboard/status-distribution?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Connection terminated unexpectedly","method":"GET","stack":"SequelizeConnectionError: Connection terminated unexpectedly\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:149:20)\n    at Connection.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:149:18)\n    at Object.onceWrapper (node:events:638:28)\n    at Connection.emit (node:events:524:28)\n    at Socket.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:62:12)\n    at Socket.emit (node:events:536:35)\n    at TCP.<anonymous> (node:net:343:12)","timestamp":"2026-02-02 21:38:22","url":"/api/admin/dashboard/leaderboard?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Authentication timed out","method":"GET","stack":"SequelizeConnectionError: Authentication timed out\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:145:24)\n    at Client._handleErrorWhileConnecting (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:336:19)\n    at Client._handleErrorMessage (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:356:19)\n    at Connection.emit (node:events:524:28)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:116:12\n    at Parser.parse (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg-protocol\\dist\\parser.js:36:17)\n    at TLSSocket.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg-protocol\\dist\\index.js:11:42)\n    at TLSSocket.emit (node:events:524:28)\n    at addChunk (node:internal/streams/readable:561:12)\n    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)","timestamp":"2026-02-02 21:38:23","url":"/api/admin/dashboard/throughput?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Operation timeout","method":"GET","stack":"SequelizeConnectionAcquireTimeoutError: Operation timeout\n    at ConnectionManager.getConnection (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\connection-manager.js:206:15)\n    at async D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:305:26\n    at async PostgresQueryInterface.select (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Ticket.findAll (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async Ticket.findOne (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1240:12)\n    at async getRevenueStat (file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/admin.controller.js:543:22)","timestamp":"2026-02-02 21:38:34","url":"/api/admin/dashboard/revenue?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Connection terminated unexpectedly","method":"GET","stack":"SequelizeConnectionError: Connection terminated unexpectedly\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:149:20)\n    at Connection.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:149:18)\n    at Object.onceWrapper (node:events:638:28)\n    at Connection.emit (node:events:524:28)\n    at Socket.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:62:12)\n    at Socket.emit (node:events:536:35)\n    at TCP.<anonymous> (node:net:343:12)","timestamp":"2026-02-02 21:38:40","url":"/api/admin/dashboard/efficiency?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Client network socket disconnected before secure TLS connection was established","method":"GET","stack":"SequelizeConnectionError: Client network socket disconnected before secure TLS connection was established\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:145:24)\n    at Client._handleErrorWhileConnecting (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:336:19)\n    at Client._handleErrorEvent (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at TLSSocket.reportStreamError (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:57:12)\n    at TLSSocket.emit (node:events:524:28)\n    at emitErrorNT (node:internal/streams/destroy:169:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:128:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)","timestamp":"2026-02-02 21:38:40","url":"/api/admin/dashboard/risk?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"Connection terminated unexpectedly","method":"GET","stack":"SequelizeConnectionError: Connection terminated unexpectedly\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:149:20)\n    at Connection.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:149:18)\n    at Object.onceWrapper (node:events:638:28)\n    at Connection.emit (node:events:524:28)\n    at Socket.<anonymous> (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:62:12)\n    at Socket.emit (node:events:536:35)\n    at TCP.<anonymous> (node:net:343:12)","timestamp":"2026-02-02 21:38:42","url":"/api/admin/dashboard/inventory-count?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"error","message":"read ECONNRESET","method":"GET","stack":"Error\n    at Query.run (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async MechanicTask.findAll (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async MechanicTask.findOne (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1240:12)\n    at async file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/admin.controller.js:596:19","timestamp":"2026-02-02 21:38:45","url":"/api/admin/dashboard/efficiency?timeframe=all","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:42:19"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:42:19"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:42:19"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:43:14"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:43:14"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:43:14"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:46:10"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 21:46:10"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 21:46:23"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 21:46:26"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 19c41bae-a299-40f2-9e49-ad8a65780f2c","timestamp":"2026-02-02 21:46:42"}
+{"level":"info","message":"CreateTicket : Ticket #2efb8fdd-2b15-40d9-8d5e-c02ca5b96d5b created successfully","timestamp":"2026-02-02 21:46:44"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 53c22838-2dda-4603-9d3a-8f58b3224bb0","timestamp":"2026-02-02 21:46:59"}
+{"level":"info","message":"CreateTicket : Ticket #9d7ce70d-cf0d-4c3d-a914-bd70325967fd created successfully","timestamp":"2026-02-02 21:47:00"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 0e990a80-0b5b-4ee6-b8a8-906b8e78f757","timestamp":"2026-02-02 21:47:09"}
+{"level":"info","message":"CreateTicket : Ticket #78f4581e-f9ee-4660-a548-3cbd470e8b77 created successfully","timestamp":"2026-02-02 21:47:10"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 653f2313-d2d1-45b7-b24b-12a6ccece570","timestamp":"2026-02-02 21:47:20"}
+{"level":"info","message":"CreateTicket : Ticket #8314aa59-92ea-4dbf-97cb-3049972deffb created successfully","timestamp":"2026-02-02 21:47:23"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service b7112719-258b-443a-9b18-5142d80582bb","timestamp":"2026-02-02 21:47:33"}
+{"level":"info","message":"CreateTicket : Ticket #1bdd9b1f-bd6e-4f5b-b448-e9d0e5ed62e9 created successfully","timestamp":"2026-02-02 21:47:35"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service d0c7ea44-1627-4cb7-835c-832f693eda4b","timestamp":"2026-02-02 21:47:48"}
+{"level":"info","message":"CreateTicket : Ticket #f0d5a741-2ab5-4775-9237-e4f9455f47f1 created successfully","timestamp":"2026-02-02 21:47:51"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service e8ff155f-0340-499e-9e10-e204df0e48dc","timestamp":"2026-02-02 21:48:06"}
+{"level":"info","message":"CreateTicket : Ticket #357fd5b2-1d8d-4fce-a640-8e6a9ed97257 created successfully","timestamp":"2026-02-02 21:48:10"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service b7112719-258b-443a-9b18-5142d80582bb","timestamp":"2026-02-02 21:48:22"}
+{"level":"info","message":"CreateTicket : Ticket #f688807a-9fd1-4702-a5c1-a19a48432345 created successfully","timestamp":"2026-02-02 21:48:27"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service e8ff155f-0340-499e-9e10-e204df0e48dc","timestamp":"2026-02-02 21:48:44"}
+{"level":"info","message":"CreateTicket : Ticket #88aea88d-d1c5-4032-9638-a173ea23af84 created successfully","timestamp":"2026-02-02 21:48:51"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service bc8c6d30-ef5e-479d-8d32-eddc8f7e8242","timestamp":"2026-02-02 21:49:09"}
+{"level":"info","message":"CreateTicket : Ticket #ef4a7228-68ca-4038-a34f-f7b33e6ae95f created successfully","timestamp":"2026-02-02 21:49:14"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 16fced26-d703-4312-abc1-e6c0c8e746c3","timestamp":"2026-02-02 21:49:32"}
+{"level":"info","message":"CreateTicket : Ticket #a6b23606-77ee-4fca-ad09-6c49d247d395 created successfully","timestamp":"2026-02-02 21:49:34"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:50:59"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:50:59"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:50:59"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 21:52:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 21:53:05"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:53:58"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 21:53:58"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:54:07"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 21:54:07"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 21:54:15"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 21:54:22"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:54:58"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:54:58"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:54:58"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:56:04"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:56:04"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:56:04"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 21:56:14"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 21:56:14"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 21:56:14"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 22:08:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 22:08:58"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 22:11:48"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 22:11:48"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 22:13:40"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 22:13:42"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 22:13:47"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-02 22:13:47"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 22:13:54"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 22:13:59"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-02 22:18:09"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-02 22:18:09"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-02 22:18:09"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-02 22:18:41"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-02 22:18:42"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 22:18:44"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 22:18:49"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 22:18:51"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 22:24:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 22:25:08"}
+{"level":"error","message":{"message":"","method":"GET","stack":"SequelizeConnectionError\n    at Client._connectionCallback (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\connection-manager.js:145:24)\n    at Client._handleErrorWhileConnecting (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:336:19)\n    at Client._handleErrorEvent (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\client.js:346:19)\n    at Connection.emit (node:events:524:28)\n    at Socket.reportStreamError (D:\\mp\\SankeyAriseProject\\SSCMSBackend\\node_modules\\pg\\lib\\connection.js:57:12)\n    at Socket.emit (node:events:524:28)\n    at emitErrorNT (node:internal/streams/destroy:169:8)\n    at emitErrorCloseNT (node:internal/streams/destroy:128:3)\n    at process.processTicksAndRejections (node:internal/process/task_queues:82:21)","url":"/api/admin/tickets?page=1&limit=10&status=ALL&search=sa","user":"c55089bb-4b4a-425e-8fd5-0bad92e8b2d1"},"timestamp":"2026-02-02 22:28:58"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 22:29:18"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 22:29:38"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-02 22:31:03"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-02 22:31:04"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-02 22:31:04"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-02 22:31:07"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-02 22:31:09"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 22:31:09"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 22:31:09"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 22:31:13"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 22:31:13"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 22:31:13"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-02-02 22:31:13"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-02-02 22:31:19"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-02-02 22:31:20"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 22:46:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 22:46:57"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 22:51:54"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 22:51:57"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-02 23:02:55"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-02 23:03:00"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-03 11:57:47"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-03 11:57:48"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-03 12:04:21"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-03 12:04:21"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-03 12:04:21"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:00:29"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-05 19:00:29"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:00:45"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-05 19:00:45"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-05 19:01:01"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-05 19:01:02"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:01:59"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-05 19:01:59"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-05 19:02:03"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-05 19:02:03"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:02:12"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-05 19:02:12"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-05 19:02:20"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-05 19:02:20"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:02:21"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 32c804cd-6b09-48fb-90b6-85f09fc14f19","timestamp":"2026-02-05 19:04:38"}
+{"level":"info","message":"CreateTicket : Ticket #4ae6095e-6d86-49d8-a168-e46c32d091b5 created successfully","timestamp":"2026-02-05 19:04:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:17:23"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:17:23"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:24:50"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:24:50"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:24:50"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:24:50"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:24:50"}
+{"level":"error","message":"Only pending tickets can be accepted.","method":"PATCH","stack":"Error: Only pending tickets can be accepted.\n    at file:///D:/mp/SankeyAriseProject/SSCMSBackend/src/controllers/admin.controller.js:297:13\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2026-02-05 19:24:50","url":"/api/admin/ticket/4ae6095e-6d86-49d8-a168-e46c32d091b5/accept","user":"0265d354-979b-4d8b-8e15-ffd6f20a3f68"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:24:50"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:26:48"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-05 19:26:48"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-05 19:26:48"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 0, Completed Today: 1","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 0, Completed Today: 1","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:27:22"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-05 19:27:41"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-05 19:27:41"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-05 19:27:41"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 0, Completed Today: 1","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 0, Completed Today: 1","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-02-05 19:27:44"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 1","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 1","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-05 19:27:48"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:54:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:54:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 19:54:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 19:54:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:09:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:09:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:09:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:09:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:24:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:24:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:24:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:24:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-05 20:39:52"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-05 20:39:52"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:19:18"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 08:19:18"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 08:19:25"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 08:19:26"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:23:24"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:23:24"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:23:24"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:23:57"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:23:57"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:23:57"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:28:09"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:28:09"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:28:09"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:29:57"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:29:57"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:29:57"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:30:07"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:30:07"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:30:07"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:44:03"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:44:03"}
+{"level":"info","message":"GetMe : Error verifying token","timestamp":"2026-02-06 08:44:03"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 08:44:03"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 08:44:04"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:44:04"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 08:44:04"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 08:44:04"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 08:44:43"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 08:44:43"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 08:44:47"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 08:44:47"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 08:44:48"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 08:44:52"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 09:00:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 09:00:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 09:16:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 09:16:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 09:32:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 09:32:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 09:48:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 09:48:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 10:04:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 10:04:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 10:20:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 10:20:38"}

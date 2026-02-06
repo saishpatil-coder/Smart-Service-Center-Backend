@@ -17,6 +17,7 @@ export async function sendNotification(token, title, body) {
   console.log("Notification sent to token:", title);
 }
 export async function notifyUser(userId, title, body, type = "INFO", additionalData = {}) {
+  return;
   try {
     const tokens = await db.UserFcmTokens.findAll({
       where: { userId },
@@ -71,6 +72,7 @@ export async function notifyUser(userId, title, body, type = "INFO", additionalD
 }
 
 export async function notifyAdmins(title, body, type = "INFO", additionalData = {}) {
+  return;
   try {
     const adminUsers = await db.User.findAll({
       where: { role: "ADMIN" },

@@ -2,7 +2,7 @@
 import { DataTypes } from "sequelize";
 
 export default (sequelize) => {
-  const CustomerFeedback =  sequelize.define(
+  const CustomerFeedback = sequelize.define(
     "CustomerFeedback",
     {
       id: {
@@ -39,7 +39,7 @@ export default (sequelize) => {
     {
       tableName: "customer_feedbacks",
       timestamps: true,
-    }
+    },
   );
   return CustomerFeedback;
 };

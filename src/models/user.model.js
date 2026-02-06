@@ -15,7 +15,7 @@ export default (sequelize) => {
       email: {
         type: DataTypes.STRING,allowNull: false,unique: true,
       },
-      mobile: {
+      mobile: { 
         type: DataTypes.STRING,allowNull: false,
       },
       assignedCount: {

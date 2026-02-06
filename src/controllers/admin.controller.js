@@ -2,43 +2,28 @@ import { Op, Sequelize, where } from "sequelize";
 import db from "../models/index.js";
 import { assignMechanicIfPossible } from "./mech.controller.js";
 import { notifyAdmins, notifyUser } from "../utils/sendNotification.js";
-export const getAllMechanics = async (req, res) => {
+import { asyncHandler } from "../utils/asyncHandler.js";
+import ApiError from "../utils/ApiError.js";
+export const getAllMechanics = asyncHandler(async (req, res) => {
   console.log("getting mechs");
-  try {
-    const mechanics = await db.User.findAll({
-      where: { role: "MECHANIC" },
-      attributes: ["id", "name", "email", "mobile", "status", "createdAt"],
-      order: [["createdAt", "DESC"]],
-    });
+  const mechanics = await db.User.findAll({
+    where: { role: "MECHANIC" },
+    attributes: ["id", "name", "email", "mobile", "status", "createdAt"],
+    order: [["createdAt", "DESC"]],
+  });
+  return res.json({ mechanics });
+});
 
-    return res.json({ mechanics });
-  } catch (err) {
-    console.log("FETCH MECHANICS ERROR:", err);
-    return res.status(500).json({ message: "Failed to fetch mechanics." });
-  }
-};
-
-export const deleteMechanic = async (req, res) => {
-  try {
+export const deleteMechanic = asyncHandler(async (req, res) => {
     const { id } = req.params;
-
     const mech = await db.User.findByPk(id);
-
-    if (!mech || mech.role !== "MECHANIC") {
-      return res.status(404).json({ message: "Mechanic not found." });
-    }
-
+    if (!mech || mech.role !== "MECHANIC") 
+      throw new ApiError(404, "Mechanic not found");
     await mech.destroy();
-
     return res.json({ message: "Mechanic deleted successfully." });
-  } catch (err) {
-    console.log("DELETE MECHANIC ERROR:", err);
-    return res.status(500).json({ message: "Failed to delete mechanic." });
-  }
-};
+});
 
-export const getAllPendingTickets = async (req, res) => {
-  try {
+export const getAllPendingTickets = asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = 10; // Number of tickets per page
     const offset = (page - 1) * limit;
@@ -84,13 +69,9 @@ export const getAllPendingTickets = async (req, res) => {
       totalPages: Math.ceil(count / limit),
       currentPage: page,
     });
-  } catch (err) {
-    return res.status(500).json({ message: "Failed to fetch pending tickets" });
-  }
-};
+});
 
-export const getAssignmentQueue = async (req, res) => {
-  try {
+export const getAssignmentQueue = asyncHandler(async (req, res) => {
     const tickets = await db.Ticket.findAll({
       where: { status: "ACCEPTED" },
 
@@ -109,13 +90,9 @@ export const getAssignmentQueue = async (req, res) => {
 
       order: [
         // 1. 🔥 ESCALATED FIRST (isEscalated: true comes before false)
-        // Since true is usually 1 and false is 0, we use DESC for true first
         ["isEscalated", "DESC"],
-
         // 2. 🔥 CUSTOM PRIORITY (The 501, 567 values from Ticket table)
-        // Usually, lower numbers mean "top of the list"
         ["priority", "ASC"],
-
         // 3. 🔥 FIFO (Oldest tickets first for ties in priority)
         ["createdAt", "ASC"],
       ],
@@ -147,15 +124,9 @@ export const getAssignmentQueue = async (req, res) => {
     });
 
     res.json({ tickets: formattedTickets });
-  } catch (err) {
-    console.error("QUEUE ERROR:", err);
-    res.status(500).json({ message: "Failed to fetch assignment queue" });
-  }
-};
+});
 
-export const getAllTickets = async (req, res) => {
-  try {
-    // 1. Extract pagination and filters from query
+export const getAllTickets = asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const rawLimit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
@@ -170,9 +141,11 @@ export const getAllTickets = async (req, res) => {
     }
 
     if (search) {
-      whereClause[Op.or] = [
-        { title: { [Op.iLike]: `%${search}%` } }
-            ];
+    whereClause[Op.or] = [
+      { title: { [Op.iLike]: `%${search}%` } },
+      { description: { [Op.iLike]: `%${search}%` } },
+    ];
+
     }
     // 3. FindAndCountAll is better for pagination
     const { count, rows: tickets } = await db.Ticket.findAndCountAll({
@@ -220,14 +193,9 @@ export const getAllTickets = async (req, res) => {
       totalItems: count,
       currentPage: page,
     });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Failed to fetch tickets" });
-  }
-};
+});
 
-export const getTicketById = async (req, res) => {
-  try {
+export const getTicketById =asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const ticket = await db.Ticket.findByPk(id, {
@@ -241,16 +209,12 @@ export const getTicketById = async (req, res) => {
         { model: db.User, as: "mechanic" },
       ],
     });
-    if (!ticket) {
-      return res.status(404).json({ message: "Ticket not found" });
-    }
+    if (!ticket)
+      throw new ApiError(404, "Ticket not found");
+    
     const mechanicTask = await db.MechanicTask.findOne({
       where: [{ ticketId: ticket.id }],
     });
-    console.log(mechanicTask?.partsUsed ?? "no parts used");
-    // console.log(ticket)
-
-    // console.log(ticket.mechanic)
     const service = ticket.service;
     const severity = service?.Severity;
 
@@ -293,7 +257,6 @@ export const getTicketById = async (req, res) => {
       // Cost
       cost: ticket.cost,
 
-      createdAt: ticket.createdAt,
       acceptedAt: ticket.acceptedAt,
       assignedAt: ticket.assignedAt,
       completedAt: ticket.completedAt,
@@ -321,26 +284,17 @@ export const getTicketById = async (req, res) => {
     };
 
     res.json({ ticket: response });
-  } catch (err) {
-    console.error("GET TICKET BY ID ERROR:", err);
-    res.status(500).json({ message: "Failed to fetch ticket" });
-  }
-};
+});
 
-export const acceptTicket = async (req, res) => {
-  try {
+export const acceptTicket =asyncHandler(async (req, res) => {
     const { id } = req.params;
     const ticket = await db.Ticket.findByPk(id);
 
-    if (!ticket) {
-      return res.status(404).json({ message: "Ticket not found." });
-    }
+    if (!ticket) 
+      throw new ApiError(404, "Ticket not found");
 
-    if (ticket.status !== "PENDING") {
-      return res.status(400).json({
-        message: "Only pending tickets can be accepted.",
-      });
-    }
+    if (ticket.status !== "PENDING") 
+      throw new ApiError(400,"Only pending tickets can be accepted.")
 
     const now = new Date();
 
@@ -367,36 +321,32 @@ export const acceptTicket = async (req, res) => {
         message: `Ticket accepted and assigned to ${assignedMechanic.name}`,
         ticket,
       });
+    }else{
+       await notifyUser(
+         ticket.clientId,
+         "Ticket Accepted",
+         `Your ticket "${ticket.title}" has been accepted and is awaiting assignment to a mechanic.`,
+       );
+       //notify admins about unassigned ticket
+       await notifyAdmins(
+         "Ticket Accepted",
+         `Ticket "${ticket.title}" is accepted but not yet assigned to a mechanic.`,
+       );
     }
-    //notify user that his ticket is accepted
-    await notifyUser(
-      ticket.clientId,
-      "Ticket Accepted",
-      `Your ticket "${ticket.title}" has been accepted and is awaiting assignment to a mechanic.`
-    );
-    //notify admins about unassigned ticket
-    await notifyAdmins(
-      "Ticket Accepted",
-      `Ticket "${ticket.title}" is accepted but not yet assigned to a mechanic.`
-    );
     return res.json({
       message: "Ticket accepted. Waiting for mechanic availability.",
       ticket,
     });
-  } catch (err) {
-    console.error("ACCEPT TICKET ERROR:", err);
-    res.status(500).json({ message: "Failed to accept ticket." });
-  }
-};
+});
 
-export const cancelTicket = async (req, res) => {
-  try {
+export const cancelTicket = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const user = req.user;
     console.log("Cancelling ticket");
 
     const ticket = await db.Ticket.findByPk(id);
-    if (!ticket) return res.status(404).json({ message: "Ticket not found." });
+    if (!ticket) throw new ApiError(404, "Ticket not found");
+    if(ticket.status !== "PENDING") throw new ApiError(400,"Only pending tickets can be cancelled.");
 
     await ticket.update({
       status: "CANCELLED",
@@ -413,14 +363,9 @@ export const cancelTicket = async (req, res) => {
       `Your ticket "${ticket.title}" has been cancelled.`
     );
     return res.json({ message: "Ticket cancelled.", ticket });
-  } catch (err) {
-    console.error("CANCEL TICKET ERROR:", err);
-    res.status(500).json({ message: "Failed to cancel ticket." });
-  }
-};
+});
 
-export const getMechanicWithTasks = async (req, res) => {
-  try {
+export const getMechanicWithTasks =asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     // Fetch mechanic
@@ -441,9 +386,7 @@ export const getMechanicWithTasks = async (req, res) => {
       ],
     });
 
-    if (!mechanic) {
-      return res.status(404).json({ message: "Mechanic not found" });
-    }
+    if (!mechanic) throw new ApiError(404,"mechanic not found");
 
     // Fetch all tasks ever assigned to this mechanic
     const tasks = await db.MechanicTask.findAll({
@@ -506,14 +449,9 @@ export const getMechanicWithTasks = async (req, res) => {
       mechanic,
       tasks: formattedTasks,
     });
-  } catch (err) {
-    console.error("GET MECHANIC WITH TASKS ERROR:", err);
-    res.status(500).json({ message: "Failed to fetch mechanic details" });
-  }
-};
+});
 
-export const addNewService = async (req, res) => {
-  try {
+export const addNewService = asyncHandler(async (req, res) => {
     const {
       serviceTitle,
       type,
@@ -524,19 +462,11 @@ export const addNewService = async (req, res) => {
     } = req.body;
 
     // basic validation
-    if (!serviceTitle || !severityId) {
-      return res.status(400).json({
-        message: "serviceTitle and severityId are required",
-      });
-    }
+    if (!serviceTitle || !severityId) throw new ApiError(400,"serviceTitle and severityId are required")
 
     // check severity exists
     const severity = await db.Severity.findByPk(severityId);
-    if (!severity) {
-      return res.status(404).json({
-        message: "Invalid severity selected",
-      });
-    }
+    if (!severity) throw new ApiError(400,"Severity Not Found")
 
     const service = await db.Service.create({
       serviceTitle,
@@ -551,163 +481,13 @@ export const addNewService = async (req, res) => {
       message: "Service created successfully",
       service,
     });
-  } catch (error) {
-    console.error("Add Service Error:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-    });
-  }
-};
+});
 
-export const getIndustryStats = async (req, res) => {
-  try {
-    const { timeframe = "all" } = req.query;
-
-    // 1. Build Time Filter
-    let timeWhere = {};
-    if (timeframe !== "all") {
-      const date = new Date();
-      if (timeframe === "24h") date.setHours(date.getHours() - 24);
-      if (timeframe === "7d") date.setDate(date.getDate() - 7);
-      if (timeframe === "30d") date.setDate(date.getDate() - 30);
-      timeWhere = { createdAt: { [Op.gte]: date } };
-    }
-
-    const [kpiData, statusDistribution, leaderboard, inventoryStatus] =
-      await Promise.all([
-        // KPI: REVENUE & RISK
-        db.Ticket.findOne({
-          where: { ...timeWhere, isPaid: true },
-          attributes: [
-            [Sequelize.fn("COUNT", Sequelize.col("Ticket.id")), "totalTickets"],
-            [
-              // Ticket Cost + Sum of parts in MechanicTask JSONB
-              Sequelize.literal(`SUM(
-              COALESCE("Ticket"."cost", 0) + 
-              COALESCE((
-                SELECT SUM((part->>'price')::numeric * (part->>'quantity')::numeric)
-                FROM "MechanicTasks", jsonb_array_elements("partsUsed") AS part
-                WHERE "MechanicTasks"."ticketId" = "Ticket"."id"
-              ), 0)
-            )`),
-              "totalRevenue",
-            ],
-            [
-              // Risk Level Logic: isEscalated OR (Status=ACCEPTED and Time > max_assign_minutes)
-              Sequelize.literal(`COUNT(CASE 
-              WHEN "Ticket"."isEscalated" = true 
-              OR (
-                "Ticket"."status" = 'ACCEPTED' AND 
-                NOW() > ("Ticket"."createdAt" + (interval '1 minute' * "service->Severity"."max_assign_minutes"))
-              ) THEN 1 END)`),
-              "riskLevel",
-            ],
-          ],
-          include: [
-            {
-              model: db.Service,
-              as: "service",
-              attributes: [],
-              include: [{ model: db.Severity, as: "Severity", attributes: [] }],
-            },
-          ],
-          raw: true,
-        }),
-
-        // KPI: STATUS DISTRIBUTION
-        db.Ticket.findAll({
-          where: timeWhere,
-          attributes: [
-            "status",
-            [Sequelize.fn("COUNT", Sequelize.col("id")), "count"],
-          ],
-          group: ["status"],
-          raw: true,
-        }),
-        // KPI: MECHANIC EFFICIENCY
-        db.MechanicTask.findAll({
-          attributes: [
-            // Explicitly reference the table to avoid ambiguity
-            [Sequelize.col("MechanicTask.mechanicId"), "mechanicId"],
-            [
-              Sequelize.fn("COUNT", Sequelize.col("MechanicTask.id")),
-              "resolvedTickets",
-            ],
-            [
-              Sequelize.literal(`AVG(
-        (NULLIF("Ticket->service"."defaultExpectedHours", 0) / 
-        NULLIF(EXTRACT(EPOCH FROM ("MechanicTask"."completedAt" - "MechanicTask"."startedAt")) / 3600, 0)) * 100
-      )`),
-              "efficiencyScore",
-            ],
-          ],
-          where: { completedAt: { [Op.ne]: null } },
-          include: [
-            { model: db.User, as: "mechanic", attributes: ["name"] },
-            {
-              model: db.Ticket,
-              attributes: [],
-              include: [{ model: db.Service, as: "service", attributes: [] }],
-            },
-          ],
-          // Update group by to use the explicit table name
-          group: [
-            "MechanicTask.mechanicId",
-            "mechanic.id",
-            "Ticket->service.id",
-          ],
-          order: [[Sequelize.literal('"efficiencyScore"'), "DESC"]],
-          limit: 5,
-        }),
-        // KPI: CRITICAL INVENTORY
-        db.Inventory.findAll({
-          where: { quantity: { [Op.lte]: Sequelize.col("minStock") } },
-          attributes: ["name", "quantity", "minStock", "unitPrice"],
-          limit: 5,
-        }),
-      ]);
-
-    res.json({
-      metrics: {
-        revenue: parseFloat(kpiData?.totalRevenue || 0),
-        ticketThroughput: parseInt(kpiData?.totalTickets || 0),
-        riskLevel: parseInt(kpiData?.riskLevel || 0),
-        avgEfficiency: leaderboard.length
-          ? (
-              leaderboard.reduce(
-                (acc, curr) =>
-                  acc + parseFloat(curr.dataValues.efficiencyScore || 0),
-                0
-              ) / leaderboard.length
-            ).toFixed(1)
-          : 0,
-      },
-      leaderboard: leaderboard.map((l) => ({
-        name: l.mechanic.name,
-        resolved: parseInt(l.dataValues.resolvedTickets),
-        efficiency: Math.min(
-          parseFloat(l.dataValues.efficiencyScore || 0),
-          100
-        ).toFixed(1),
-      })),
-      inventory: inventoryStatus,
-      statusStats: statusDistribution,
-      lastUpdated: new Date(),
-    });
-  } catch (error) {
-    console.error("Industrial Stats Error:", error);
-    res.status(500).json({ error: "Aggregation failed" });
-  }
-};
-
-export const markAsEscalated = async (req, res) => {
-  try {
+export const markAsEscalated = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const ticket = await db.Ticket.findByPk(id);
-    if (!ticket) {
-      return res.status(403).json({ message: "Ticket not found" });
-    }
+    if (!ticket) throw new ApiError(404, "Ticket not found");
 
     // Simply flip the boolean flag
     await ticket.update({ isEscalated: true });
@@ -717,21 +497,14 @@ export const markAsEscalated = async (req, res) => {
       message: "Ticket marked as escalated",
       isEscalated: true,
     });
-  } catch (error) {
-    console.error("ESCALATION_ERROR:", error);
-    res.status(500).json({ message: "Failed to escalate ticket" });
-  }
-};
-export const updateTicketCustomPriority = async (req, res) => {
-  console.log("update priority");
-  try {
+});
+
+export const updateTicketCustomPriority = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { customPriority } = req.body;
 
     const ticket = await db.Ticket.findByPk(id);
-    if (!ticket) {
-      return res.status(403).json({ message: "Ticket not found" });
-    }
+    if (!ticket) throw new ApiError(404, "Ticket not found");
 
     // Update the custom priority number
     // High numbers will push it down, low numbers bring it to the top (depending on your sort)
@@ -744,11 +517,7 @@ export const updateTicketCustomPriority = async (req, res) => {
       message: `Priority set to ${customPriority}`,
       priority: ticket.priority,
     });
-  } catch (error) {
-    console.error("PRIORITY_UPDATE_ERROR:", error);
-    res.status(500).json({ message: "Failed to update custom priority" });
-  }
-};
+});
 
 // Helper for Timeframe
 const getTimeWhere = (timeframe) => {
@@ -772,8 +541,8 @@ export const getRevenueStat = async (req, res) => {
     ],
     raw: true,
   });
-
   console.log("Total Labour Revenue:", labourData.totalLabourCost);
+
   const partsData = await db.MechanicTask.findOne({
     attributes: [
       [
@@ -810,15 +579,14 @@ export const getRevenueStat = async (req, res) => {
 };
 
 // 2. THROUGHPUT (Fast Count)
-export const getThroughputStat = async (req, res) => {
+export const getThroughputStat = asyncHandler(async (req, res) => {
   const timeWhere = getTimeWhere(req.query.timeframe);
   const count = await db.Ticket.count({ where: timeWhere });
   res.json({ value: count });
-};
+});
 
 // 3. AVG EFFICIENCY (Calculation Heavy)
-export const getEfficiencyStat = async (req, res) => {
-  try {
+export const getEfficiencyStat = asyncHandler(async (req, res) => {
     const stats = await db.MechanicTask.findOne({
       where: {
         completedAt: { [Op.ne]: null },
@@ -881,31 +649,31 @@ export const getEfficiencyStat = async (req, res) => {
       onTimeTasks: parseInt(stats?.onTimeTasks || 0),
       value: parseFloat(stats?.efficiencyPercentage || 0).toFixed(1),
     });
-  } catch (error) {
-    console.error("Efficiency Stats Error:", error);
-    return res.status(500).json({ message: "Internal Server Error" });
   }
-};
-
+);
 // 4. RISK LEVEL (SLA Check)
-export const getRiskStat = async (req, res) => {
+export const getRiskStat = asyncHandler(async (req, res) => {
   const count = await db.Ticket.count({
-    where: { isEscalated: true }, // Simplified for speed, add SLA logic if needed
+    where: {
+      isEscalated: true,
+      status: "ACCEPTED",
+    },
   });
+
   res.json({ value: count });
-};
+});
+
 
 // 5. INVENTORY COUNT (Stock Check)
-export const getInventoryStat = async (req, res) => {
+export const getInventoryStat = asyncHandler(async (req, res) => {
   const count = await db.Inventory.count({
     where: { quantity: { [Op.lte]: Sequelize.col("minStock") } },
   });
   res.json({ value: count });
-};
+});
 
 // 6. MECHANIC LEADERBOARD (Top 5 by Efficiency)
-export const getLeaderboardStat = async (req, res) => {
-  try {
+export const getLeaderboardStat = asyncHandler(async (req, res) => {
     const stats = await db.MechanicTask.findAll({
       where: {
         completedAt: { [Op.ne]: null },
@@ -972,15 +740,10 @@ export const getLeaderboardStat = async (req, res) => {
     });
 
     return res.json(stats);
-  } catch (error) {
-    console.error("Mechanic Stats Error:", error);
-    return res.status(500).json({ message: "Error fetching performance data" });
-  }
-};
+});
 
 // 7. STATUS DISTRIBUTION (Pie Chart Data)
-export const getStatusDistributionStat = async (req, res) => {
-  try {
+export const getStatusDistributionStat = asyncHandler(async (req, res) => {
     const timeWhere = getTimeWhere(req.query.timeframe);
 
     const data = await db.Ticket.findAll({
@@ -1000,8 +763,4 @@ export const getStatusDistributionStat = async (req, res) => {
     }));
 
     res.json({ value: distribution });
-  } catch (error) {
-    console.error("Distribution Error:", error);
-    res.status(500).json({ error: "Failed to fetch distribution" });
-  }
-};
+})
