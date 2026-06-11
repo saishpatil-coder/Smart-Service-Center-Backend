@@ -13,13 +13,13 @@ const logFormat = printf(({ level, message, timestamp, stack, ...meta }) => {
 return `${timestamp} [${level}]: ${message} ${metaString}${stackTrace}`;});
 
 const logger = winston.createLogger({
-  level: "info",
+  level: "info", 
   // 1. Use JSON format for files (Best for searching/parsing later)
   format: combine(timestamp({ format: "YYYY-MM-DD HH:mm:ss" }), json()),
   transports: [
     new winston.transports.File({ filename: "error.log", level: "error" }),
     new winston.transports.File({ filename: "combined.log" }),
-
+ 
     // 2. Use Custom Colorized format for Console
     new winston.transports.Console({
       format: combine(

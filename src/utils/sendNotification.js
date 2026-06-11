@@ -17,7 +17,6 @@ export async function sendNotification(token, title, body) {
   console.log("Notification sent to token:", title);
 }
 export async function notifyUser(userId, title, body, type = "INFO", additionalData = {}) {
-  return;
   try {
     const tokens = await db.UserFcmTokens.findAll({
       where: { userId },
@@ -59,10 +58,16 @@ export async function notifyUser(userId, title, body, type = "INFO", additionalD
             resp.error.code === "messaging/invalid-registration-token" ||
             resp.error.code === "messaging/registration-token-not-registered"
           ) {
-            console.log("failed token : ", fcmTokens[idx]);
+            failedTokens.push(fcmTokens[idx]);
           }
         }
       });
+      if (failedTokens.length > 0) {
+        await db.UserFcmTokens.destroy({
+          where: { token: failedTokens }
+        });
+        console.log(`Deleted ${failedTokens.length} expired FCM tokens from DB.`);
+      }
     }
 
     console.log(`Successfully sent ${response.successCount} messages.`);
@@ -72,7 +77,6 @@ export async function notifyUser(userId, title, body, type = "INFO", additionalD
 }
 
 export async function notifyAdmins(title, body, type = "INFO", additionalData = {}) {
-  return;
   try {
     const adminUsers = await db.User.findAll({
       where: { role: "ADMIN" },

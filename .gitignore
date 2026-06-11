@@ -10,3 +10,6 @@ firebase-adminsdk-*.json
 src/config/*firebase-adminsdk*.json
 /logs
 logs
+combined.log
+error.log
+*.stackdump

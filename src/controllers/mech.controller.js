@@ -8,19 +8,11 @@ import { Op, Sequelize } from "sequelize";
 export const assignMechanicIfPossible = asyncHandler(async (ticket) => {
   const mechanics = await db.User.findAll({
     where: { role: "MECHANIC", status: "ACTIVE" },
-    include: [
-      {
-        model: db.MechanicTask,
-        as: "tasks",
-        required: false,
-        where: { completedAt: null },
-      },
-    ],
     order: [["lastAssignedAt", "ASC"]],
   });
 
-  // Free mechanic = no active task
-  const freeMech = mechanics.find((m) => !m.tasks || m.tasks.length === 0);
+  // Free mechanic = no active task (using assignedCount as the source of truth)
+  const freeMech = mechanics.find((m) => m.assignedCount === 0);
 
   if (!freeMech) return null;
 
@@ -32,7 +24,7 @@ export const assignMechanicIfPossible = asyncHandler(async (ticket) => {
     status: "ASSIGNED",
   });
   await freeMech.update({
-    assignedCount: Sequelize.literal("assignedCount + 1"),
+    assignedCount: 1,
   });
   await db.MechanicTask.create({
     ticketId: ticket.id,

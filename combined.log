@@ -476,3 +476,336 @@
 {"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 10:04:38"}
 {"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 10:20:37"}
 {"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 10:20:38"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:33:33"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 10:33:33"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:33:40"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 10:33:40"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 10:33:40"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 10:36:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 10:36:38"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:39:17"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 10:39:17"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:41:07"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 10:41:07"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:42:49"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 10:42:49"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 10:42:57"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 10:42:57"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:50"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:52"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-02-06 10:44:54"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-06 10:46:39"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-06 10:46:39"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-06 10:46:39"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Tasks : 2","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Tasks : 2","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 1, Completed Today: 0","timestamp":"2026-02-06 10:46:49"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 10:51:48"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 10:51:48"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 10:51:52"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 10:51:52"}
+{"level":"info","message":"PayInvoice : Processing payment for user d72c1454-9982-4420-b95d-d4eed7de3afe","timestamp":"2026-02-06 10:53:05"}
+{"level":"info","message":"PayInvoice : 3 tickets marked as paid for user d72c1454-9982-4420-b95d-d4eed7de3afe","timestamp":"2026-02-06 10:53:05"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 11:47:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 11:47:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 12:48:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 12:48:38"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 13:49:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 13:49:38"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-06 14:08:34"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-06 14:08:34"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-06 14:08:34"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 14:53:01"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 14:53:01"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:05:12"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 15:05:12"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 15:08:50"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 15:08:50"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 8a17e808-86dc-4f77-9f73-f81f94fbffc9","timestamp":"2026-02-06 15:11:27"}
+{"level":"info","message":"CreateTicket : Ticket #ed2f5692-6824-40a3-9cae-cb39b45bffd9 created successfully","timestamp":"2026-02-06 15:11:28"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:18:10"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:18:10"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:18:10"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 2410f231-564d-49d7-a7b6-3a7fe1efadd6","timestamp":"2026-02-06 15:25:49"}
+{"level":"info","message":"CreateTicket : Ticket #8f67a269-5b5f-4c74-9182-e964bb613f02 created successfully","timestamp":"2026-02-06 15:25:49"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 90ce5400-ccf7-4c4a-90b7-f991f533e9e0","timestamp":"2026-02-06 15:25:57"}
+{"level":"info","message":"CreateTicket : Ticket #b00ee05e-5ba0-455c-bc10-220789990f41 created successfully","timestamp":"2026-02-06 15:25:57"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 68eb537e-8caa-458b-8ad0-ef96150227b0","timestamp":"2026-02-06 15:26:05"}
+{"level":"info","message":"CreateTicket : Ticket #19bc5a56-8882-4b48-9286-671217b49367 created successfully","timestamp":"2026-02-06 15:26:05"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:26:22"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 15:26:22"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 15:28:10"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 15:28:10"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-06 15:28:29"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-06 15:28:29"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-06 15:28:29"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 15:28:52"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 15:28:52"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:29:01"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:29:01"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:29:01"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:29:44"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:29:44"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:29:44"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-02-06 15:30:17"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-02-06 15:30:17"}
+{"level":"info","message":"User logged out","timestamp":"2026-02-06 15:30:17"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 15:30:22"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 15:30:22"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:35:00"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:35:00"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:35:00"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:35:06"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:35:06"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:35:06"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:38:13"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-02-06 15:38:13"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-02-06 15:38:14"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-02-06 15:38:15"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:17"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:17"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:18"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:31"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:33"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:38"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 0, Completed Today: 1","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"Tasks : 5","timestamp":"2026-02-06 15:38:43"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-02-06 15:52:14"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-02-06 15:52:14"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-02-06 15:52:14"}
+{"level":"info","message":"REFRESH TOKEN : Attempting to refresh access token","timestamp":"2026-02-06 16:38:37"}
+{"level":"info","message":"REFRESH TOKEN : Token refreshed successfully","timestamp":"2026-02-06 16:38:38"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-03-14 09:26:02"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-03-14 09:26:02"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 09:26:21"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 09:26:21"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-03-14 09:28:10"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-03-14 09:28:10"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 09:28:10"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 09:28:12"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 09:28:13"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-03-14 09:30:50"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-03-14 09:30:50"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 09:30:50"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 09:30:57"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 09:30:57"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-03-14 13:15:04"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-03-14 13:15:04"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:15:41"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:15:41"}
+{"level":"info","message":"CreateTicket : User d72c1454-9982-4420-b95d-d4eed7de3afe requesting service 2410f231-564d-49d7-a7b6-3a7fe1efadd6","timestamp":"2026-03-14 13:16:57"}
+{"level":"info","message":"CreateTicket : Ticket #0be5f2ce-d2fd-45b3-980b-212863c5bba5 created successfully","timestamp":"2026-03-14 13:16:57"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-03-14 13:17:04"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-03-14 13:17:04"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 13:17:04"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:17:09"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:17:09"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-03-14 13:17:22"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-03-14 13:17:22"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:17:28"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:17:29"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 13:20:08"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:20:11"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:20:11"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 0","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Getting dashboard summary for mechanic : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Dashboard Summary - Assigned: 4, In Progress: 0, Completed Today: 0","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-03-14 13:20:12"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:19"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-03-14 13:20:19"}
+{"level":"info","message":"Getting tasks by mech : b51470ee-b643-4382-a410-b18f57bed190","timestamp":"2026-03-14 13:20:19"}
+{"level":"info","message":"Tasks : 4","timestamp":"2026-03-14 13:20:19"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 13:20:23"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:20:25"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:20:25"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 13:20:34"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:20:54"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:20:54"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Tasks : 6","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Tasks : 6","timestamp":"2026-03-14 13:20:55"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Getting dashboard summary for mechanic : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Tasks : 6","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Dashboard Summary - Assigned: 3, In Progress: 1, Completed Today: 0","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Getting tasks by mech : ff70682a-b5f0-4509-8a14-254d5a7d127e","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"Tasks : 6","timestamp":"2026-03-14 13:21:03"}
+{"level":"info","message":"User logged out","timestamp":"2026-03-14 13:22:39"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-03-14 13:22:42"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-03-14 13:22:42"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-06-05 10:28:46"}
+{"level":"info","message":"GetMe : No token present","timestamp":"2026-06-05 10:28:46"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:28:58"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:01"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:29:04"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:04"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:29:09"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:09"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:29:17"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:18"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:29:19"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:20"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:29:23"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:29:23"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:33:22"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:33:27"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:33:32"}
+{"level":"warn","message":"Login Function : Invalid credentials","timestamp":"2026-06-05 10:33:32"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:36:17"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-05 10:36:17"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-05 10:38:37"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-05 10:38:38"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-05 10:38:38"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-05 10:38:42"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-05 10:38:43"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-05 10:38:44"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-05 10:38:44"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-06-05 10:38:46"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-05 10:38:46"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-06-05 10:38:47"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-05 10:38:47"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 1, Completed Today: 0","timestamp":"2026-06-05 10:38:48"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-06-05 10:38:48"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-05 11:10:11"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-05 11:10:12"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-05 11:10:12"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:35:29"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:35:39"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-06-10 22:37:27"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-06-10 22:37:27"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-06-10 22:37:27"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:39:46"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:39:51"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:39:51"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:39:54"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:39:55"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service 4b886c2b-76a3-4a51-a56c-61d60c3e3ad3","timestamp":"2026-06-10 22:40:16"}
+{"level":"info","message":"CreateTicket : Ticket #4dd07bad-4ba8-4d6a-8d06-54d3b9b5524f created successfully","timestamp":"2026-06-10 22:40:21"}
+{"level":"info","message":"CreateTicket : User ec886d5b-5ae1-40c7-b0c1-bc534dd21ce8 requesting service f5aea33c-cc97-45f8-b917-2b8621b14437","timestamp":"2026-06-10 22:40:30"}
+{"level":"info","message":"CreateTicket : Ticket #daed1bcc-79d2-472b-88bb-af7934ede5f0 created successfully","timestamp":"2026-06-10 22:40:31"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:40:33"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:40:33"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:40:34"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:40:37"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:40:37"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:40:40"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:40:42"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:40:44"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:40:46"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:40:47"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:40:57"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:40:57"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:40:57"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:41:03"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:41:04"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:41:05"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:41:05"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 0, Completed Today: 0","timestamp":"2026-06-10 22:41:07"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:41:07"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-06-10 22:41:07"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:41:07"}
+{"level":"info","message":"Dashboard Summary - Assigned: 1, In Progress: 0, Completed Today: 0","timestamp":"2026-06-10 22:41:10"}
+{"level":"info","message":"Tasks : 1","timestamp":"2026-06-10 22:41:10"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:41:21"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:41:22"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:41:24"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:41:27"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:41:28"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 22:42:08"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 22:42:09"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 22:42:09"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 22:42:12"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 22:42:13"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:42:13"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:42:13"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 1, Completed Today: 0","timestamp":"2026-06-10 22:42:14"}
+{"level":"info","message":"Getting dashboard summary for mechanic : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:42:14"}
+{"level":"info","message":"Tasks : 2","timestamp":"2026-06-10 22:42:15"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:42:15"}
+{"level":"info","message":"Dashboard Summary - Assigned: 2, In Progress: 1, Completed Today: 0","timestamp":"2026-06-10 22:42:18"}
+{"level":"info","message":"Tasks : 2","timestamp":"2026-06-10 22:42:19"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:43:09"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-06-10 22:43:10"}
+{"level":"info","message":"Getting tasks by mech : 03279f28-acc1-4460-a86e-a901fcc97c42","timestamp":"2026-06-10 22:43:10"}
+{"level":"info","message":"Tasks : 3","timestamp":"2026-06-10 22:43:11"}
+{"level":"error","message":"read ECONNRESET","method":"GET","stack":"Error\n    at Query.run (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async TicketMessage.findAll (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async file:///D:/mp/sankey/SankeyAriseProject/SSCMSBackend/src/controllers/ticketMessage.controller.js:33:20","timestamp":"2026-06-10 22:43:39","url":"/api/messages/4dd07bad-4ba8-4d6a-8d06-54d3b9b5524f/messages","user":"03279f28-acc1-4460-a86e-a901fcc97c42"}
+{"level":"error","message":"read ECONNRESET","method":"PATCH","stack":"Error\n    at Query.run (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\postgres\\query.js:50:25)\n    at D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\sequelize.js:315:28\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)\n    at async PostgresQueryInterface.select (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\dialects\\abstract\\query-interface.js:407:12)\n    at async Ticket.findAll (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1140:21)\n    at async Ticket.findOne (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1240:12)\n    at async Ticket.findByPk (D:\\mp\\sankey\\SankeyAriseProject\\SSCMSBackend\\node_modules\\sequelize\\lib\\model.js:1221:12)\n    at async file:///D:/mp/sankey/SankeyAriseProject/SSCMSBackend/src/controllers/mech.controller.js:109:18","timestamp":"2026-06-10 22:43:39","url":"/api/mechanic/task/4dd07bad-4ba8-4d6a-8d06-54d3b9b5524f/start","user":"03279f28-acc1-4460-a86e-a901fcc97c42"}
+{"level":"info","message":"GetMe : Getting User","timestamp":"2026-06-10 23:05:03"}
+{"level":"info","message":"GetMe : Verifying token","timestamp":"2026-06-10 23:05:03"}
+{"level":"info","message":"GetMe : Token verified","timestamp":"2026-06-10 23:05:03"}
+{"level":"info","message":"removing fcm token","timestamp":"2026-06-10 23:08:10"}
+{"level":"info","message":"logout responce : ","timestamp":"2026-06-10 23:08:12"}
+{"level":"info","message":"User logged out","timestamp":"2026-06-10 23:08:12"}
+{"level":"info","message":"Login Function : Attempting login","timestamp":"2026-06-10 23:08:20"}
+{"level":"info","message":"Login user : Logged in successfully.","timestamp":"2026-06-10 23:08:21"}

@@ -75,19 +75,21 @@ export const loginUser = asyncHandler(async (req, res) => {
   // Remove password
   const { password: _, ...safeUser } = user.toJSON();
 
+  const isProd = process.env.CLIENT_URL && process.env.CLIENT_URL.startsWith("https");
+
   // Access Token
   res.cookie("token", accessToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none", // change to "strict" if same domain
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     maxAge: 60 * 60 * 1000,
   });
 
   // Refresh Token
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -200,19 +202,21 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
    * ✅ Send cookies
    */
 
+  const isProd = process.env.CLIENT_URL && process.env.CLIENT_URL.startsWith("https");
+
   // access token (keep name as "token")
   res.cookie("token", newAccessToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none", // use "none" only if cross-domain
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     maxAge: 60 * 60 * 1000,
   });
 
   // rotated refresh token
   res.cookie("refreshToken", newRefreshToken, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
+    secure: isProd,
+    sameSite: isProd ? "none" : "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   logger.info("REFRESH TOKEN : Token refreshed successfully");
