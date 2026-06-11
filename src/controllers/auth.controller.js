@@ -98,6 +98,7 @@ export const loginUser = asyncHandler(async (req, res) => {
   return res.json({
     message: "Logged in",
     user: safeUser,
+    token: accessToken,
   });
 });
 
@@ -221,7 +222,10 @@ export const refreshAccessToken = asyncHandler(async (req, res) => {
   });
   logger.info("REFRESH TOKEN : Token refreshed successfully");
 
-  return res.json({ message: "Token refreshed" });
+  return res.json({
+    message: "Token refreshed",
+    token: newAccessToken,
+  });
 });
 
 export const saveFcmToken = asyncHandler(async (req, res) => {
